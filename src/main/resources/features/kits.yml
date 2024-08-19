@@ -42,11 +42,11 @@ kits:
   ninja:
     permission: none
     helmet: LEATHER_HELMET color:black
-    chestplate: LEATHER_CHESTPLATE color:black name:&7Ninja-Jacket lore:&6Ninja-Stealth-Suit:&4------------- enchant:fire_protection
+    chestplate: LEATHER_CHESTPLATE color:black name:&7Ninja-Jacket lore:&6Ninja-Stealth-Suit:&4------------- enchant:protection_fire
     leggings: LEATHER_LEGGINGS color:black
-    boots: LEATHER_BOOTS color:black enchant:feather_falling
+    boots: LEATHER_BOOTS color:black enchant:protection_fall
     items:
-      - IRON_SWORD 1 enchant:sharpness:2 enchant:smite:2 name:&bOP_&6Sword?
+      - IRON_SWORD 1 enchant:damage_all:2 enchant:smite:2 name:&bOP_&6Sword?
     potion-effects:
       - SPEED:1:forever
   stupidclass:
@@ -56,7 +56,7 @@ kits:
     leggings:
     boots:
     items:
-      - IRON_SWORD 1 enchant:sharpness:2 enchant:smite:2 name:&bOP_&6Sword?
+      - IRON_SWORD 1 enchant:damage_all:2 enchant:smite:2 name:&bOP_&6Sword?
       - BREAD 4
     potion-effects:
       - FIRE_RESISTANCE:2:forever

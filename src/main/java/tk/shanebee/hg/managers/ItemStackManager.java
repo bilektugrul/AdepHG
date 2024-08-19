@@ -1,5 +1,6 @@
 package tk.shanebee.hg.managers;
 
+import me.despical.commons.compat.XMaterial;
 import me.despical.commons.configuration.ConfigUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
@@ -193,10 +194,9 @@ public class ItemStackManager {
     }
 
     private ItemStack itemStringToStack(String item, int amount) {
-        System.out.println(item);
         Material material;
         try {
-            material = Material.valueOf(item);
+            material = XMaterial.matchXMaterial(item).get().parseMaterial();
         } catch (IllegalArgumentException ex) {
             Util.warning("Invalid Material: &7" + item);
             return null;
