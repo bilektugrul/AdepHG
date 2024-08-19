@@ -34,7 +34,7 @@ public class WandCmd extends BaseCmd {
             plugin.getPlayerSessions().remove(player.getUniqueId());
             Util.sendPrefixedMessage(player, "&cWand disabled!");
         } else {
-            if (!player.getInventory().getItemInMainHand().isSimilar(WAND)) {
+            if (!player.getInventory().getItemInHand().isSimilar(WAND)) {
                 player.getInventory().addItem(WAND);
             }
             plugin.getPlayerSessions().put(player.getUniqueId(), new PlayerSession(null, null));

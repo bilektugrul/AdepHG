@@ -1,5 +1,6 @@
 package tk.shanebee.hg.managers;
 
+import me.despical.commons.configuration.ConfigUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Color;
 import org.bukkit.DyeColor;
@@ -12,7 +13,6 @@ import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.inventory.meta.LeatherArmorMeta;
 import org.bukkit.inventory.meta.PotionMeta;
 import org.bukkit.inventory.meta.SkullMeta;
-import org.bukkit.potion.PotionData;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
@@ -20,7 +20,6 @@ import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.KitEntry;
 import tk.shanebee.hg.util.NBTApi;
 import tk.shanebee.hg.util.PotionEffectUtils;
-import tk.shanebee.hg.util.PotionTypeUtils;
 import tk.shanebee.hg.util.Util;
 
 import java.util.ArrayList;
@@ -42,7 +41,7 @@ public class ItemStackManager {
 
     public void setKits() {
         Util.log("Loading kits...");
-        kitCreator(plugin.getHGConfig().getConfig(), plugin.getKitManager(), null);
+        kitCreator(ConfigUtils.getConfig(plugin, "features/kits"), plugin.getKitManager(), null);
         Util.log("Kits have been &aloaded!");
     }
 
@@ -135,10 +134,10 @@ public class ItemStackManager {
                 if (itemMeta instanceof LeatherArmorMeta) {
                     ((LeatherArmorMeta) itemMeta).setColor(getColor(s));
                     try {
-                        itemMeta.addItemFlags(ItemFlag.HIDE_DYE);
+                        itemMeta.addItemFlags(ItemFlag.HIDE_ATTRIBUTES);
                     } catch (NoSuchFieldError ignore) {}
-                } else if (itemMeta instanceof PotionMeta) {
-                    ((PotionMeta) itemMeta).setColor(getColor(s));
+                //} else if (itemMeta instanceof PotionMeta) {
+                    //((PotionMeta) itemMeta).setColor(getColor(s));
                 } else {
                     Util.warning("Item cannot be colored: &c%s &eline: &b%s", split[0], args);
                 }
@@ -162,25 +161,20 @@ public class ItemStackManager {
                         ((PotionMeta) itemMeta).addCustomEffect(potionEffect, true);
                     }
                 }
-            } else if (s.startsWith("potion-base:") && itemMeta instanceof PotionMeta) {
-                s = s.replace("potion-base:", "");
-                PotionData potionData = PotionTypeUtils.getPotionData(s);
-                if (potionData != null) {
-                    ((PotionMeta) itemMeta).setBasePotionData(potionData);
-                }
             } else if (s.startsWith("data:")) {
                 s = s.replace("data:", "").replace("~", " ");
                 if (nbtApi != null)
                     itemMeta = nbtApi.getItemWithNBT(item, s).getItemMeta();
             } else if (s.startsWith("ownerName:") && itemMeta instanceof SkullMeta) {
                 s = s.replace("ownerName:", "");
-                ((SkullMeta) itemMeta).setOwningPlayer(Bukkit.getOfflinePlayer(s));
+                ((SkullMeta) itemMeta).setOwner(s);
             }
             item.setItemMeta(itemMeta);
         }
         return item;
     }
 
+    //note: check this maybe
     @SuppressWarnings("deprecation") //Enchantment#getName
     private void enchant(ItemMeta itemMeta, String line, String enchantString) {
         enchantString = enchantString.replace("enchant:", "").toUpperCase();
@@ -190,7 +184,7 @@ public class ItemStackManager {
             level = Integer.parseInt(d[1]);
         }
         for (Enchantment e : Enchantment.values()) {
-            if (e.getKey().getKey().equalsIgnoreCase(d[0]) || e.getName().equalsIgnoreCase(d[0])) {
+            if (e.getName().equalsIgnoreCase(d[0]) || e.getName().equalsIgnoreCase(d[0])) {
                 itemMeta.addEnchant(e, level, true);
                 return;
             }
@@ -199,6 +193,7 @@ public class ItemStackManager {
     }
 
     private ItemStack itemStringToStack(String item, int amount) {
+        System.out.println(item);
         Material material;
         try {
             material = Material.valueOf(item);

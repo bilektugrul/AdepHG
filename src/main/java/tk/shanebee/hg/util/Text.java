@@ -5,10 +5,12 @@ import net.md_5.bungee.api.chat.ClickEvent;
 import net.md_5.bungee.api.chat.HoverEvent;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.command.CommandSender;
+import org.bukkit.entity.Player;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.hg.HG;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.function.Consumer;
 
@@ -48,6 +50,10 @@ public class Text {
         return msg;
     }
 
+    public static String arrayToString(String[] array) {
+        return String.join(" ", array);
+    }
+
     /**
      * Send a TextComponent message to a player/console
      * <p>Message will be prefixed with the hunger games prefix</p>
@@ -60,6 +66,10 @@ public class Text {
         BaseComponent[] comps = new BaseComponent[msgs.length + 1];
         comps[0] = prefix;
         System.arraycopy(msgs, 0, comps, 1, msgs.length);
-        sender.spigot().sendMessage(comps);
+        if (sender instanceof Player) {
+            ((Player) sender).spigot().sendMessage(comps);
+        } else {
+            sender.sendMessage(Arrays.toString(comps));
+        }
     }
 }

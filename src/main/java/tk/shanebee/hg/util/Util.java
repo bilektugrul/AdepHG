@@ -7,7 +7,6 @@ import org.bukkit.FireworkEffect;
 import org.bukkit.FireworkEffect.Type;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.command.CommandSender;
@@ -16,17 +15,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.meta.FireworkMeta;
 import org.bukkit.material.Attachable;
 import org.bukkit.material.MaterialData;
+import org.bukkit.permissions.PermissionAttachmentInfo;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.Config;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-import java.util.UUID;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
@@ -171,16 +167,6 @@ public class Util {
      * @return Formatted string
      */
     public static String getColString(String string) {
-        if (isRunningMinecraft(1, 16)) {
-            Matcher matcher = HEX_PATTERN.matcher(string);
-            while (matcher.find()) {
-                final ChatColor hexColor = ChatColor.of(matcher.group().substring(1, matcher.group().length() - 1));
-                final String before = string.substring(0, matcher.start());
-                final String after = string.substring(matcher.end());
-                string = before + hexColor + after;
-                matcher = HEX_PATTERN.matcher(string);
-            }
-        }
         return ChatColor.translateAlternateColorCodes('&', string);
     }
 
@@ -332,11 +318,7 @@ public class Util {
      * @return True if material is a wall sign
      */
     public static boolean isWallSign(Material item) {
-        if (isRunningMinecraft(1, 14)) {
-            return Tag.WALL_SIGNS.isTagged(item);
-        } else {
-            return item == Material.getMaterial("WALL_SIGN");
-        }
+        return item == Material.getMaterial("WALL_SIGN");
     }
 
     /**
@@ -369,6 +351,16 @@ public class Util {
         } catch (final ClassNotFoundException e) {
             return false;
         }
+    }
+
+    public static String getValueOfPerm(Player player, String perm) {
+        for (PermissionAttachmentInfo permissionAttachmentInfo : player.getEffectivePermissions()) {
+            String permission = permissionAttachmentInfo.getPermission();
+            if (permission.contains(perm)) {
+                return permission.replace(perm, "");
+            }
+        }
+        return null;
     }
 
 }

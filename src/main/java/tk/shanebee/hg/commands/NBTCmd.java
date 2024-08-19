@@ -26,8 +26,8 @@ public class NBTCmd extends BaseCmd {
 	public boolean run() {
 		Player player = (Player) sender;
 		CommandSender console = Bukkit.getConsoleSender();
-		if (player.getInventory().getItemInMainHand().getType() != Material.AIR) {
-			ItemStack item = player.getInventory().getItemInMainHand();
+		if (player.getInventory().getItemInHand().getType() != Material.AIR) {
+			ItemStack item = player.getInventory().getItemInHand();
 			Material type = item.getType();
 			Util.scm(player, "&3NBT:");
 			String nbtString = api.getNBT(item);

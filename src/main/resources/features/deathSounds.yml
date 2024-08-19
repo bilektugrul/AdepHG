@@ -1,0 +1,40 @@
+sounds:
+  1:
+    display: Kurt Ölümü
+    sound: WOLF_DEATH
+  2:
+    display: Domuz Ölümü
+    sound: PIG_DIE
+  3:
+    display: İnek İncindi
+    sound: COW_HURT
+  4:
+    display: Kedi Miyavladı
+    sound: CAT_MEOW
+  5:
+    display: Zombi Ölümü
+    sound: ZOMBIE_DEATH
+  6:
+    display: Eşek Ölümü
+    sound: DONKEY_DEATH
+  7:
+    display: Blaze Ölümü
+    sound: BLAZE_DEATH
+  8:
+    display: Golem Ölümü
+    sound: IRONGOLEM_DEATH
+  9:
+    display: Gardiyan Ölümü
+    sound: GUARDIAN_DEATH
+  10:
+    display: Anvil Düştü
+    sound: ANVIL_LAND
+  11:
+    display: Wither İncindi
+    sound: WITHER_HURT
+  12:
+    display: Ghast Bağırdı
+    sound: GHAST_SCREAM
+  13:
+    display: Ghast Ölümü
+    sound: GHAST_DEATH

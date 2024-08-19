@@ -1,6 +1,8 @@
 package tk.shanebee.hg.commands;
 
+import com.google.common.collect.Sets;
 import org.bukkit.Location;
+import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import tk.shanebee.hg.game.Game;
@@ -20,7 +22,7 @@ public class SetLobbyWallCmd extends BaseCmd {
 	public boolean run() {
 		Game g = gameManager.getGame(args[1]);
 		if (g != null) {
-			Block b = player.getTargetBlockExact(6);
+			Block b = player.getTargetBlock(Sets.newHashSet(Material.WALL_SIGN), 6);
 			if (b !=  null && Util.isWallSign(b.getType()) && g.getGameBlockData().setLobbyBlock((Sign)b.getState())) {
 				Location l = b.getLocation();
 				assert l.getWorld() != null;

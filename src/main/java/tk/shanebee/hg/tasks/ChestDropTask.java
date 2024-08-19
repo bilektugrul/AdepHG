@@ -31,7 +31,7 @@ public class ChestDropTask implements Runnable {
         if (prevBlock.getType() != Material.AIR) {
             prevBlock.setType(Material.AIR);
             game.getGameBlockData().recordBlockPlace(prevBlock.getState());
-            w.playSound(blockLoc, Sound.ENTITY_FIREWORK_ROCKET_LARGE_BLAST, SoundCategory.NEUTRAL, 1f, 1f);
+            w.playSound(blockLoc, Sound.FIREWORK_LARGE_BLAST, 1f, 1f);
         }
         Block newBlock = w.getBlockAt(newBlockLoc);
         newBlock.setType(chestDrop.getMaterial());
@@ -41,12 +41,12 @@ public class ChestDropTask implements Runnable {
             chestDrop.setCurDropTaskId(newTaskId);
         }
         else {
-            w.spawnEntity(blockLoc, EntityType.FIREWORK, true);
-            w.spawnEntity(blockLoc, EntityType.FIREWORK, true);
-            w.spawnEntity(blockLoc, EntityType.FIREWORK, true);
+            w.spawnEntity(blockLoc, EntityType.FIREWORK);
+            w.spawnEntity(blockLoc, EntityType.FIREWORK);
+            w.spawnEntity(blockLoc, EntityType.FIREWORK);
             BlockState origBlockState = chestDrop.getInitBeaconBlock();
             Block curBeaconBlock = origBlockState.getWorld().getBlockAt(origBlockState.getLocation());
-            curBeaconBlock.setBlockData(origBlockState.getBlockData());
+            curBeaconBlock.setData(origBlockState.getData().getData());
             game.getChestDropManager().startChestDrop();
         }
     }

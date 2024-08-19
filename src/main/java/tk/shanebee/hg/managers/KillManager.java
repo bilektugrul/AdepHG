@@ -71,12 +71,6 @@ public class KillManager {
 			case SKELETON:
 			case SPIDER:
 				return (lang.death_spider.replace("<player>", name));
-			case DROWNED:
-				return (lang.death_drowned.replace("<player>", name));
-			case TRIDENT:
-				return (lang.death_trident.replace("<player>", name));
-			case STRAY:
-				return (lang.death_stray.replace("<player>", name));
 			default:
 				return (lang.death_other_entity.replace("<player>", name));
 		}
@@ -86,10 +80,10 @@ public class KillManager {
         String weapon;
         if (projectile) {
             weapon = "bow and arrow";
-        } else if (killer.getInventory().getItemInMainHand().getType() == Material.AIR) {
+        } else if (killer.getInventory().getItemInHand().getType() == Material.AIR) {
             weapon = "fist";
         } else {
-            weapon = killer.getInventory().getItemInMainHand().getType().name().toLowerCase();
+            weapon = killer.getInventory().getItemInHand().getType().name().toLowerCase();
         }
         return (lang.death_player.replace("<player>", victimName)
                 .replace("<killer>", killer.getName())

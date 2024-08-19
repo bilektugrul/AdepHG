@@ -1,0 +1,34 @@
+start-rides:
+  mushroomcow:
+    entity: mushroom_cow
+    fiyat: 1
+  cow:
+    entity: cow
+    fiyat: 1
+  chicken:
+    entity: CHICKEN
+    fiyat: 1
+  pig:
+    entity: PIG
+  sheep:
+    entity: sheep
+  cat:
+    entity: ocelot
+  creeper:
+    entity: creeper
+  skeleton:
+    entity: skeleton
+  spider:
+    entity: SPIDER
+  witch:
+    entity: WITCH
+  blaze:
+    entity: blaze
+  zombie:
+    entity: ZOMBIE
+  pigman:
+    entity: PIGMAN
+  snowman:
+    entity: snowman
+  golem:
+    entity: IRON_GOLEM

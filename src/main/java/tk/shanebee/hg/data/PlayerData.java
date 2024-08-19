@@ -3,7 +3,6 @@ package tk.shanebee.hg.data;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.scoreboard.Scoreboard;
@@ -50,7 +49,7 @@ public class PlayerData implements Cloneable {
     public PlayerData(Player player, Game game) {
         this.game = game;
         this.uuid = player.getUniqueId();
-        inv = player.getInventory().getStorageContents();
+        inv = player.getInventory().getContents();
         equip = player.getInventory().getArmorContents();
         expL = player.getLevel();
         expP = player.getExp();
@@ -78,18 +77,18 @@ public class PlayerData implements Cloneable {
         player.setExp(expP);
         player.setFoodLevel(food);
         player.setSaturation(saturation);
-        player.getInventory().setStorageContents(inv);
+        player.getInventory().getContents();
         player.getInventory().setArmorContents(equip);
         player.setGameMode(mode);
         player.updateInventory();
-        player.setInvulnerable(false);
+        player.removeMetadata("HG-GOD", HG.getPlugin());
         restoreHealth(player);
         player.setScoreboard(scoreboard);
     }
 
     // Restores later if player has an item in their inventory which changes their max health value
     private void restoreHealth(Player player) {
-        double att = player.getAttribute(Attribute.GENERIC_MAX_HEALTH).getValue();
+        double att = player.getMaxHealth();
         if (health > att) {
             Bukkit.getScheduler().runTaskLater(HG.getPlugin(), () -> player.setHealth(health), 10);
         } else {

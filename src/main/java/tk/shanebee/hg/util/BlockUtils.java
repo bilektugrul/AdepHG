@@ -1,9 +1,7 @@
 package tk.shanebee.hg.util;
 
 import com.google.common.collect.ImmutableSet;
-import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.Tag;
 import org.bukkit.block.Block;
 import tk.shanebee.hg.data.Config;
 
@@ -57,44 +55,17 @@ public class BlockUtils {
     private static ImmutableSet.Builder<Material> setup(List<String> materialStrings) {
         ImmutableSet.Builder<Material> materialBuilder = ImmutableSet.builder();
 
-        boolean warnShulker = false;
-        boolean hasShulkerTag = false;
         for (String materialString : materialStrings) {
             if (!materialString.contains("tag")) {
                 for (Material material : Material.values()) {
                     if (materialString.equalsIgnoreCase("ALL") || material.toString().equalsIgnoreCase(materialString)) {
                         materialBuilder.add(material);
                     }
-                    // This is deprecated (on Nov 10/2020) and scheduled for removal in the future (use tags instead)
-                    else if (materialString.equalsIgnoreCase("SHULKER_BOX") && material.toString().contains("SHULKER_BOX") && !materialString.contains("tag")) {
-                        materialBuilder.add(material);
-                        warnShulker = true;
-                    }
-                }
-            } else {
-                boolean tagFound = false;
-                for (Tag<Material> blocks : Bukkit.getTags("blocks", Material.class)) {
-                    String tag = blocks.getKey().getKey();
-                    if (materialString.equalsIgnoreCase("tag:" + tag)) {
-                        materialBuilder.addAll(blocks.getValues());
-                        tagFound = true;
-                    }
-                    // Apparently this was added in 1.15
-                    // Will remove 1.14.4- support in the future
-                    if (tag.equalsIgnoreCase("shulker_boxes")) {
-                        hasShulkerTag = true;
-                    }
-                }
-                if (!tagFound) {
-                    Util.warning("Unknown tag: &c" + materialString);
+
                 }
             }
         }
-        if (warnShulker && hasShulkerTag) {
-            Util.warning("It appears you are using 'SHULKER_BOX' in your config (for either bonus blocks or breakable blocks)");
-            Util.warning("This method is now deprecated and will be removed in the future");
-            Util.warning("Instead use: 'tag:shulker_boxes'");
-        }
+
         return materialBuilder;
     }
 

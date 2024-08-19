@@ -3,12 +3,8 @@ package tk.shanebee.hg.game;
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
-import org.bukkit.scoreboard.DisplaySlot;
-import org.bukkit.scoreboard.Objective;
-import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.*;
 import org.bukkit.scoreboard.Team;
-import org.bukkit.scoreboard.Team.Option;
-import org.bukkit.scoreboard.Team.OptionStatus;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.Config;
 import tk.shanebee.hg.data.Language;
@@ -40,7 +36,7 @@ public class Board {
         this.game = game;
         this.plugin = game.plugin;
         scoreboard = Objects.requireNonNull(Bukkit.getScoreboardManager()).getNewScoreboard();
-        board = scoreboard.registerNewObjective("Board", "dummy", "Board");
+        board = scoreboard.registerNewObjective("Board", "Board");
         board.setDisplaySlot(DisplaySlot.SIDEBAR);
         board.setDisplayName(" ");
 
@@ -54,7 +50,7 @@ public class Board {
         team = scoreboard.registerNewTeam("game-team");
 
         if (Config.hideNametags) {
-            team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.NEVER);
+            team.setNameTagVisibility(NameTagVisibility.NEVER);
         }
     }
 
@@ -64,9 +60,9 @@ public class Board {
         team.setPrefix(prefix);
         String suffix = Util.getColString(" " + plugin.getLang().team_suffix.replace("<name>", name));
         team.setSuffix(suffix);
-        team.setColor(COLORS[game.gamePlayerData.teams.size() % COLORS.length]);
+        team.setPrefix(COLORS[game.gamePlayerData.teams.size() % COLORS.length] + "");  //note: maybe this is broken dunno
         if (Config.hideNametags && Config.team_showTeamNames) {
-            team.setOption(Option.NAME_TAG_VISIBILITY, OptionStatus.FOR_OTHER_TEAMS);
+            team.setNameTagVisibility(NameTagVisibility.HIDE_FOR_OTHER_TEAMS);
         }
         team.setAllowFriendlyFire(Config.team_friendly_fire);
         team.setCanSeeFriendlyInvisibles(Config.team_see_invis);

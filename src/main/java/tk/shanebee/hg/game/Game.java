@@ -15,7 +15,6 @@ import tk.shanebee.hg.events.GameStartEvent;
 import tk.shanebee.hg.game.GameCommandData.CommandType;
 import tk.shanebee.hg.managers.ChestDropManager;
 import tk.shanebee.hg.managers.KitManager;
-import tk.shanebee.hg.managers.MobManager;
 import tk.shanebee.hg.managers.PlayerManager;
 import tk.shanebee.hg.tasks.*;
 import tk.shanebee.hg.tasks.TimerTask;
@@ -35,19 +34,16 @@ public class Game {
 
     // Managers
     KitManager kitManager;
-    private final MobManager mobManager;
     private final PlayerManager playerManager;
     private ChestDropManager chestDropManager;
 
     // Task ID's here!
-    private SpawnerTask spawner;
     private FreeRoamTask freeRoam;
     private StartingTask starting;
     private TimerTask timer;
 
     // Data Objects
     final GameArenaData gameArenaData;
-    final GameBarData bar;
     final GamePlayerData gamePlayerData;
     final GameBlockData gameBlockData;
     final GameItemData gameItemData;
@@ -102,8 +98,6 @@ public class Game {
         this.playerManager = HG.getPlugin().getPlayerManager();
         this.lang = plugin.getLang();
         this.kitManager = plugin.getKitManager();
-        this.mobManager = new MobManager(this);
-        this.bar = new GameBarData(this);
         this.gamePlayerData = new GamePlayerData(this);
         this.gameBlockData = new GameBlockData(this);
         this.gameItemData = new GameItemData(this);
@@ -125,15 +119,6 @@ public class Game {
      */
     public GameArenaData getGameArenaData() {
         return gameArenaData;
-    }
-
-    /**
-     * Get an instance of the GameBarData
-     *
-     * @return Instance of GameBarData
-     */
-    public GameBarData getGameBarData() {
-        return bar;
     }
 
     /**
@@ -214,15 +199,6 @@ public class Game {
     }
 
     /**
-     * Get this game's MobManager
-     *
-     * @return MobManager for this game
-     */
-    public MobManager getMobManager() {
-        return this.mobManager;
-    }
-
-    /**
      * Start the pregame countdown
      */
     public void startPreGame() {
@@ -249,12 +225,8 @@ public class Game {
      */
     public void startGame() {
         gameArenaData.status = Status.RUNNING;
-        if (Config.spawnmobs) spawner = new SpawnerTask(this, Config.spawnmobsinterval);
         if (Config.randomChest) chestDropManager.startChestDrop();
         gameBlockData.updateLobbyBlock();
-        if (Config.bossbar) {
-            bar.createBossbar(gameArenaData.timer);
-        }
         if (Config.borderEnabled && Config.borderOnStart) {
             gameBorderData.setBorder(gameArenaData.timer);
         }
@@ -262,7 +234,6 @@ public class Game {
     }
 
     public void cancelTasks() {
-        if (spawner != null) spawner.stop();
         if (timer != null) timer.stop();
         if (starting != null) starting.stop();
         if (freeRoam != null) freeRoam.stop();
@@ -281,7 +252,7 @@ public class Game {
      *
      * @param death Whether the game stopped after the result of a death (false = no winnings payed out)
      */
-    public void stop(Boolean death) {
+    public void stop(boolean death) {
         if (Config.borderEnabled) {
             gameBorderData.resetBorder();
         }
@@ -310,10 +281,7 @@ public class Game {
             }
         }
 
-        if (gameArenaData.status == Status.RUNNING) {
-            bar.clearBar();
-        }
-
+        //note: WIN HERE
         if (!win.isEmpty() && death) {
             double db = (double) Config.cash / win.size();
             for (UUID u : win) {
@@ -414,7 +382,7 @@ public class Game {
         gameArenaData.updateBoards();
     }
 
-    boolean isGameOver() {
+    public boolean isGameOver() {
         if (gamePlayerData.players.size() <= 1) return true;
         for (UUID uuid : gamePlayerData.players) {
             Team team = Objects.requireNonNull(playerManager.getPlayerData(uuid)).getTeam();

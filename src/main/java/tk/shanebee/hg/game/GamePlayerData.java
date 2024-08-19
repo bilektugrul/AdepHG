@@ -1,11 +1,11 @@
 package tk.shanebee.hg.game;
 
-import io.papermc.lib.PaperLib;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
+import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.plugin.IllegalPluginAccessException;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -108,7 +108,7 @@ public class GamePlayerData extends Data {
         for (UUID u : players) {
             Player p = Bukkit.getPlayer(u);
             if (p != null)
-                PaperLib.teleportAsync(p, pickSpawn());
+                p.teleport(pickSpawn());
         }
     }
 
@@ -137,7 +137,7 @@ public class GamePlayerData extends Data {
         player.setFoodLevel(1);
         player.setAllowFlight(false);
         player.setFlying(false);
-        player.setInvulnerable(true);
+        player.setMetadata("HG-GOD", new FixedMetadataValue(plugin, true));
     }
 
     /**
@@ -284,59 +284,58 @@ public class GamePlayerData extends Data {
             }
             Location previousLocation = player.getLocation();
 
-            // Teleport async into the arena so it loads a little more smoothly
-            PaperLib.teleportAsync(player, loc).thenAccept(a -> {
+            // note: FIRST TELEPORT HERE
+            player.teleport(loc);
 
-                PlayerData playerData = new PlayerData(player, game);
-                if (command && Config.savePreviousLocation) {
-                    playerData.setPreviousLocation(previousLocation);
+            PlayerData playerData = new PlayerData(player, game);
+            if (command && Config.savePreviousLocation) {
+                playerData.setPreviousLocation(previousLocation);
+            }
+            playerManager.addPlayerData(playerData);
+            gameArenaData.board.setBoard(player);
+
+            heal(player);
+            freeze(player);
+            kills.put(player, 0);
+
+            if (Config.enableleaveitem){
+                ItemStack leaveitem = new ItemStack(Objects.requireNonNull(Material.getMaterial(Config.leaveitemtype)), 1);
+                ItemMeta commeta = leaveitem.getItemMeta();
+                assert commeta != null;
+                commeta.setDisplayName(lang.leave_game);
+                leaveitem.setItemMeta(commeta);
+                player.getInventory().setItem(8, leaveitem);
+            }
+
+            if (Config.enableforcestartitem && player.hasPermission("hg.forcestart")) {
+                ItemStack start = new ItemStack(Objects.requireNonNull(Material.getMaterial(Config.forcestartitem)), 1);
+                ItemMeta meta = start.getItemMeta();
+                assert meta != null;
+                meta.setDisplayName(lang.force_start);
+                start.setItemMeta(meta);
+                player.getInventory().setItem(0, start);
+            }
+
+            if (players.size() == 1 && status == Status.READY)
+                gameArenaData.setStatus(Status.WAITING);
+            if (players.size() >= game.gameArenaData.minPlayers && (status == Status.WAITING || status == Status.READY)) {
+                game.startPreGame();
+            } else if (status == Status.WAITING) {
+                String broadcast = lang.player_joined_game
+                        .replace("<arena>", gameArenaData.getName())
+                        .replace("<player>", player.getName()) + (gameArenaData.minPlayers - players.size() <= 0 ? "!" : ":" +
+                        lang.players_to_start.replace("<amount>", String.valueOf((gameArenaData.minPlayers - players.size()))));
+                if (Config.broadcastJoinMessages) {
+                    Util.broadcast(broadcast);
+                } else {
+                    msgAll(broadcast);
                 }
-                playerManager.addPlayerData(playerData);
-                gameArenaData.board.setBoard(player);
+            }
+            kitHelp(player);
 
-                heal(player);
-                freeze(player);
-                kills.put(player, 0);
-
-                if (Config.enableleaveitem){
-                    ItemStack leaveitem = new ItemStack(Objects.requireNonNull(Material.getMaterial(Config.leaveitemtype)), 1);
-                    ItemMeta commeta = leaveitem.getItemMeta();
-                    assert commeta != null;
-                    commeta.setDisplayName(lang.leave_game);
-                    leaveitem.setItemMeta(commeta);
-                    player.getInventory().setItem(8, leaveitem);
-                }
-
-                if (Config.enableforcestartitem && player.hasPermission("hg.forcestart")) {
-                    ItemStack start = new ItemStack(Objects.requireNonNull(Material.getMaterial(Config.forcestartitem)), 1);
-                    ItemMeta meta = start.getItemMeta();
-                    assert meta != null;
-                    meta.setDisplayName(lang.force_start);
-                    start.setItemMeta(meta);
-                    player.getInventory().setItem(0, start);
-                }
-
-                if (players.size() == 1 && status == Status.READY)
-                    gameArenaData.setStatus(Status.WAITING);
-                if (players.size() >= game.gameArenaData.minPlayers && (status == Status.WAITING || status == Status.READY)) {
-                    game.startPreGame();
-                } else if (status == Status.WAITING) {
-                    String broadcast = lang.player_joined_game
-                            .replace("<arena>", gameArenaData.getName())
-                            .replace("<player>", player.getName()) + (gameArenaData.minPlayers - players.size() <= 0 ? "!" : ":" +
-                            lang.players_to_start.replace("<amount>", String.valueOf((gameArenaData.minPlayers - players.size()))));
-                    if (Config.broadcastJoinMessages) {
-                        Util.broadcast(broadcast);
-                    } else {
-                        msgAll(broadcast);
-                    }
-                }
-                kitHelp(player);
-
-                game.gameBlockData.updateLobbyBlock();
-                game.gameArenaData.updateBoards();
-                game.gameCommandData.runCommands(CommandType.JOIN, player);
-            });
+            game.gameBlockData.updateLobbyBlock();
+            game.gameArenaData.updateBoards();
+            game.gameCommandData.runCommands(CommandType.JOIN, player);
         }
     }
 
@@ -355,12 +354,11 @@ public class GamePlayerData extends Data {
         if (death) {
             if (Config.spectateEnabled && Config.spectateOnDeath && !game.isGameOver()) {
                 spectate(player);
-                player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 5, 1);
-                player.sendTitle(game.gameArenaData.getName(), Util.getColString(lang.spectator_start_title), 10, 100, 10);
+                player.playSound(player.getLocation(), Sound.ENDERDRAGON_WINGS, 5, 1);
+                player.sendTitle(game.gameArenaData.getName(), Util.getColString(lang.spectator_start_title));
                 game.updateAfterDeath(player, true);
                 return;
-            } else if (game.gameArenaData.getStatus() == Status.RUNNING)
-                game.getGameBarData().removePlayer(player);
+            }
         }
         heal(player);
         PlayerData playerData = playerManager.getPlayerData(uuid);
@@ -371,16 +369,14 @@ public class GamePlayerData extends Data {
         exit(player, previousLocation);
         playerManager.removePlayerData(player);
         if (death) {
-            player.playSound(player.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 5, 1);
+            player.playSound(player.getLocation(), Sound.ENDERDRAGON_WINGS, 5, 1);
         }
         game.updateAfterDeath(player, death);
     }
 
     void exit(Player player, @Nullable Location exitLocation) {
         GameArenaData gameArenaData = game.getGameArenaData();
-        player.setInvulnerable(false);
-        if (gameArenaData.getStatus() == Status.RUNNING)
-            game.getGameBarData().removePlayer(player);
+        player.removeMetadata("HG-GOD", plugin);
         Location loc;
         if (exitLocation != null) {
             loc = exitLocation;
@@ -393,9 +389,9 @@ public class GamePlayerData extends Data {
         }
         PlayerData playerData = playerManager.getData(player);
         if (playerData == null || playerData.isOnline()) {
-            PaperLib.teleportAsync(player, loc);
+            player.teleport(loc);
         } else {
-            PaperLib.teleportAsync(player, loc);
+            player.teleport(loc);
         }
     }
 
@@ -406,7 +402,7 @@ public class GamePlayerData extends Data {
      */
     public void spectate(Player spectator) {
         UUID uuid = spectator.getUniqueId();
-        PaperLib.teleportAsync(spectator, game.gameArenaData.getSpawns().get(0));
+        spectator.teleport(game.gameArenaData.getSpawns().get(0));
         if (playerManager.hasPlayerData(uuid)) {
             playerManager.transferPlayerDataToSpectator(uuid);
         } else {
@@ -414,7 +410,6 @@ public class GamePlayerData extends Data {
         }
         this.spectators.add(uuid);
         spectator.setGameMode(GameMode.SURVIVAL);
-        spectator.setCollidable(false);
         if (Config.spectateFly)
             spectator.setAllowFlight(true);
 
@@ -422,15 +417,14 @@ public class GamePlayerData extends Data {
             for (UUID u : players) {
                 Player player = Bukkit.getPlayer(u);
                 if (player == null) continue;
-                player.hidePlayer(plugin, spectator);
+                player.hidePlayer(spectator);
             }
             for (UUID u : spectators) {
                 Player player = Bukkit.getPlayer(u);
                 if (player == null) continue;
-                player.hidePlayer(plugin, spectator);
+                player.hidePlayer(spectator);
             }
         }
-        game.getGameBarData().addPlayer(spectator);
         game.gameArenaData.board.setBoard(spectator);
         spectator.getInventory().setItem(0, plugin.getItemStackManager().getSpectatorCompass());
     }
@@ -448,7 +442,6 @@ public class GamePlayerData extends Data {
 
         playerData.restore(spectator);
         spectators.remove(spectator.getUniqueId());
-        spectator.setCollidable(true);
         if (Config.spectateFly) {
             GameMode mode = spectator.getGameMode();
             if (mode == GameMode.SURVIVAL || mode == GameMode.ADVENTURE)
@@ -460,9 +453,9 @@ public class GamePlayerData extends Data {
         playerManager.removeSpectatorData(uuid);
     }
 
-    void revealPlayer(Player hidden) {
+    public void revealPlayer(Player hidden) {
         for (Player player : Bukkit.getOnlinePlayers()) {
-            player.showPlayer(plugin, hidden);
+            player.showPlayer(hidden);
         }
     }
 

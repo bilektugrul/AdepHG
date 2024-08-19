@@ -1,8 +1,5 @@
 package tk.shanebee.hg;
 
-import io.lumine.mythic.bukkit.MythicBukkit;
-import io.lumine.mythic.core.mobs.MobExecutor;
-import io.papermc.lib.PaperLib;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -53,24 +50,14 @@ public class HG extends JavaPlugin {
 	private KitManager kitManager;
 	private ItemStackManager itemStackManager;
 	private Leaderboard leaderboard;
-	private MobExecutor mmMobManager;
 
 	private static Party party = new NoParty();
-
-	//Mobs
-	private MobConfig mobConfig;
 
 	//NMS Nbt
 	private NBTApi nbtApi;
 
 	@Override
 	public void onEnable() {
-        if (!Util.isRunningMinecraft(1, 13)) {
-            Util.warning("HungerGames does not support your version!");
-            Util.warning("Only versions 1.13+ are supported");
-            Bukkit.getPluginManager().disablePlugin(this);
-            return;
-        }
 		Metrics metrics1 = new org.bstats.bukkit.Metrics(this, 15119);
 		metrics1.addCustomChart(new SimplePie("partyplugin", () -> party.getClass().getName().replaceAll("tk.shanebee.hg.util.","")));
         loadPlugin(true);
@@ -90,7 +77,7 @@ public class HG extends JavaPlugin {
 		bonusRarityMap = new HashMap<>();
 
 		config = new Config(this);
-		Bukkit.getLogger().info("Loading HungerGames by JT122406");
+		Bukkit.getLogger().info("Loading HungerGames by bilektugrul and JT122406");
 
 		//Bukkit.getLogger().info("Your server version is: " + getServer().getVersion() + "     Your Java Version is " + System.getProperty("java.version"));
 		String Version = System.getProperty("java.version");
@@ -112,7 +99,6 @@ public class HG extends JavaPlugin {
 		}else if (version >= 17) {
 			Bukkit.getLogger().info("Your Java Version is " + System.getProperty("java.version") + " This plugin is compatible with your version");
 		}
-		PaperLib.suggestPaper(this);
 
 		//NMS Nbt
 		if (Bukkit.getPluginManager().isPluginEnabled("NBTAPI")) {
@@ -124,14 +110,12 @@ public class HG extends JavaPlugin {
 		if (Bukkit.getPluginManager().isPluginEnabled("MythicMobs")) {
 			//mmMobManager = MythicMobs.inst().getMobManager();
 			Util.log("&7MythicMobs found, MythicMobs hook &aenabled");
-			mmMobManager = MythicBukkit.inst().getMobManager();
 		} else {
 			Util.log("&7MythicMobs not found, MythicMobs hooks have been &cdisabled");
 		}
 		lang = new Language(this);
 		kitManager = new KitManager();
 		itemStackManager = new ItemStackManager(this);
-		mobConfig = new MobConfig(this);
 		randomItems = new RandomItems(this);
         playerManager = new PlayerManager();
 		arenaconfig = new ArenaConfig(this);
@@ -196,11 +180,9 @@ public class HG extends JavaPlugin {
         plugin = null;
         config = null;
         nbtApi = null;
-        mmMobManager = null;
         lang = null;
         kitManager = null;
         itemStackManager = null;
-        mobConfig = null;
         randomItems = null;
         playerManager = null;
         arenaconfig = null;
@@ -396,13 +378,6 @@ public class HG extends JavaPlugin {
         return config;
     }
 
-	/** Get an instance of the mob confile
-	 * @return Mob config
-	 */
-	public MobConfig getMobConfig() {
-		return this.mobConfig;
-	}
-
 	/** Get the NBT API
 	 * @return NBT API
 	 */
@@ -418,9 +393,6 @@ public class HG extends JavaPlugin {
 	 *
 	 * @return MythicMobs MobManager
 	 */
-	public MobExecutor getMmMobManager() {
-		return this.mmMobManager;
-	}
 	public Map<ItemStack, Integer> getItemRarityMap() {
 		return itemRarityMap;
 	}

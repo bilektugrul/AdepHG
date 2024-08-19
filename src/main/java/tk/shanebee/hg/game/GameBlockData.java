@@ -7,9 +7,9 @@ import org.bukkit.block.Block;
 import org.bukkit.block.BlockFace;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.Sign;
-import org.bukkit.block.data.Directional;
 import org.bukkit.entity.ItemFrame;
 import org.bukkit.inventory.InventoryHolder;
+import org.bukkit.material.Directional;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.ItemFrameData;
 import tk.shanebee.hg.util.Util;
@@ -208,7 +208,7 @@ public class GameBlockData extends Data {
         try {
             this.sign1 = sign;
             Block c = sign1.getBlock();
-            BlockFace face = Util.getSignFace(((Directional) sign1.getBlockData()).getFacing());
+            BlockFace face = Util.getSignFace(((Directional) sign1.getData()).getFacing());
             this.sign2 = (Sign) c.getRelative(face).getState();
             this.sign3 = (Sign) sign2.getBlock().getRelative(face).getState();
 

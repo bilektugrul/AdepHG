@@ -2,7 +2,6 @@ package tk.shanebee.hg.tasks;
 
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
-import org.bukkit.attribute.Attribute;
 import org.bukkit.entity.Player;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.Status;
@@ -39,7 +38,7 @@ public class StartingTask implements Runnable {
 
     @Override
     public void run() {
-        timer-=5;
+        timer-= 5;
 
         if (game.getGameArenaData().getStatus() != Status.COUNTDOWN)
             stop();
@@ -52,8 +51,6 @@ public class StartingTask implements Runnable {
             if (health < 20)
                 player.setHealth(health);
         }
-
-
 
         if (timer <= 0) {
             //clear inventory on game start
@@ -69,7 +66,7 @@ public class StartingTask implements Runnable {
             for (UUID p : game.getGamePlayerData().getPlayers()) {
                 Player player = Bukkit.getPlayer(p);
                 assert player != null;
-                player.setHealth(Objects.requireNonNull(player.getAttribute(Attribute.GENERIC_MAX_HEALTH)).getBaseValue());
+                player.setHealth(player.getMaxHealth());
                 player.setSaturation(20);
             }
             game.startFreeRoam();

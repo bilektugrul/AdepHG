@@ -5,6 +5,7 @@ import org.bukkit.potion.PotionEffectType;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.Map;
 
 /**
@@ -39,14 +40,7 @@ public enum PotionEffectUtils {
     GLOWING("GLOWING"),
     LEVITATION("LEVITATION"),
     LUCK("LUCK"),
-    UNLUCK("UNLUCK"),
-    // 1.13
-    SLOW_FALLING("SLOW_FALLING"),
-    CONDUIT_POWER("CONDUIT_POWER"),
-    DOLPHINS_GRACE("DOLPHINS_GRACE"),
-    // 1.14
-    BAD_OMEN("BAD_OMEN"),
-    HERO_OF_THE_VILLAGE("HERO_OF_THE_VILLAGE");
+    UNLUCK("UNLUCK");
 
     private final String bukkit;
     private static final Map<String, String> BY_NAME = new HashMap<>();
@@ -59,11 +53,6 @@ public enum PotionEffectUtils {
         for (PotionEffectUtils p : values()) {
             BY_NAME.put(p.name(), p.bukkit);
         }
-        for (PotionEffectType value : PotionEffectType.values()) {
-            if (!BY_NAME.containsValue(value.getName())) {
-                Util.warning("Missing PotionEffectType for '&7" + value + "&e' please let dev know.");
-            }
-        }
     }
 
     /**
@@ -73,7 +62,7 @@ public enum PotionEffectUtils {
      * @return PotionEffectType (null if MC or Bukkit key does not exist)
      */
     public static PotionEffectType get(String key) {
-        String upper = key.toUpperCase();
+        String upper = key.toUpperCase(Locale.ENGLISH);
         if (BY_NAME.containsKey(upper)) {
             return getByKey(upper);
         } else if (BY_NAME.containsValue(upper)) {
@@ -99,7 +88,7 @@ public enum PotionEffectUtils {
      * @return PotionEffectType
      */
     public static PotionEffectType getByBukkit(String bukkit) {
-        return PotionEffectType.getByName(bukkit.toUpperCase());
+        return PotionEffectType.getByName(bukkit.toUpperCase(Locale.ENGLISH));
     }
 
     /**

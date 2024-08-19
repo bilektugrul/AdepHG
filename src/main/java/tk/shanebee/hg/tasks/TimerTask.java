@@ -32,7 +32,7 @@ public class TimerTask implements Runnable {
 		this.teleportTimer = Config.teleportEndTime;
 		this.borderCountdownStart = g.getGameBorderData().getBorderTimer().get(0);
 		this.borderCountdownEnd = g.getGameBorderData().getBorderTimer().get(1);
-		g.getGamePlayerData().getPlayers().forEach(uuid -> Objects.requireNonNull(Bukkit.getPlayer(uuid)).setInvulnerable(false));
+		g.getGamePlayerData().getPlayers().forEach(uuid -> Objects.requireNonNull(Bukkit.getPlayer(uuid)).removeMetadata("HG-GOD", plugin));
 
 		this.end_min = lang.game_ending_min;
 		this.end_minsec = lang.game_ending_minsec;
@@ -45,8 +45,6 @@ public class TimerTask implements Runnable {
 	public void run() {
 		GameArenaData gameArenaData = game.getGameArenaData();
 		if (gameArenaData.getStatus() != Status.RUNNING) stop(); //A quick null check!
-
-		if (Config.bossbar) game.getGameBarData().bossbarUpdate(remainingtime);
 
 		if (Config.borderEnabled && remainingtime == borderCountdownStart) {
 			int closingIn = remainingtime - borderCountdownEnd;

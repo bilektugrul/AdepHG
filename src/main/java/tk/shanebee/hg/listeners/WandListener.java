@@ -8,7 +8,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.Action;
 import org.bukkit.event.player.PlayerInteractEvent;
-import org.bukkit.inventory.EquipmentSlot;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.Language;
 import tk.shanebee.hg.data.PlayerSession;
@@ -36,11 +35,10 @@ public class WandListener implements Listener {
         if (block == null) return;
 
         Location location = block.getLocation();
-        if (!player.getInventory().getItemInMainHand().getType().equals(Material.BLAZE_ROD)) return;
+        if (!player.getInventory().getItemInHand().getType().equals(Material.BLAZE_ROD)) return;
         PlayerSession session = plugin.getPlayerSessions().get(player.getUniqueId());
 
         if (session != null && (action.equals(Action.RIGHT_CLICK_BLOCK) || action.equals(Action.LEFT_CLICK_BLOCK))) {
-            if (event.getHand() == EquipmentSlot.OFF_HAND) return;
             event.setCancelled(true);
 
             for (Game game : plugin.getGames()) {

@@ -25,16 +25,17 @@ public class ItemFrameData {
         this.uuid = itemFrame.getUniqueId();
     }
 
+    //note: fix this maybe
     public void resetItem() {
-        World world = location.getWorld();
+        /*World world = location.getWorld();
         if (world == null) return;
 
-        Entity entity = Bukkit.getEntity(uuid);
+        Entity entity = world.getEntities();
         if (entity instanceof ItemFrame && !entity.isDead()) {
             ItemFrame itemFrame = ((ItemFrame) entity);
             itemFrame.setItem(itemStack);
             itemFrame.setRotation(rotation);
-        }
+        }*/
     }
 
 }

@@ -1,0 +1,66 @@
+deathMessages:
+  ates:
+    display: Ateş
+    list:
+      - %victim%, %attacker% tarafından toz haline getirildi.
+      - %victim%, %attacker% tarafından kül haline getirildi.
+      - %victim%, %attacker% tarafından eritilerek öldürüldü.
+      - %victim%, %attacker% tarafından yakıldı.
+      - %victim%, %attacker% tarafından havaya uçuruldu.
+  bosluk:
+    display: 'Boşluk'
+    list:
+      - %victim%, %attacker% tarafından fırlatıldı.
+      - %victim%, %attacker% tarafından sonsuzluğa atıldı.
+      - %victim%, %attacker% tarafından çukura atıldı.
+      - %victim%, %attacker% tarafından hiçliğe atıldı.
+  acimasiz:
+    display: 'Acımasız'
+    list:
+      - %victim%, %attacker% tarafından muz tabancasıyla vuruldu.
+      - %victim%, %attacker% tarafından soyuldu.
+      - %victim%, %attacker% tarafından lapa haline getirildi.
+  galaksi:
+      display: Galaksi
+        - %victim%, %attacker% tarafından uzaya fırlatıldı.
+        - %victim%, %attacker% yüzünden bir astreoite çarptı.
+        - %victim%, %attacker% farklı bir galaksiye gönderildi.
+  sikismak:
+    display: Sıkışmak
+    list:
+      - %victim%, %attacker% tarafından imha edildi.
+      - %victim%, %attacker% tarafından sıkıştırıldı.
+      - %victim%, %attacker% tarafından etkisiz hale getirildi.
+  efendi:
+    display: efendi
+    list:
+      - %attacker%, %victim% oyuncusunun dizine vurdu.
+      - %victim% mancınıkla %attacker% tarafından fırlatıldı.
+      - %victim%, şövalye %attacker% tarafından ezildi.
+  saldiri:
+    display: Saldırı
+    list:
+      - %victim%, %attacker% tarafından patates edildi.
+      - %victim%, %attacker% tarafından vuruldu.
+      - %victim%, %attacker% tarafından maçın dışına fırlatıldı.
+      - %attacker%, %victim% adlı oyuncunun kalbini kırdı.
+      - %victim% oyuncusuna %attacker% tarafından omuz atıldı.
+  bilgisayar:
+    display: Bilgisayar
+    list:
+      - %victim% oyuncusuna %attacker% tarafından ALT+F4 çekildi.
+      - %victim%, %attacker% tarafından silindi.
+      - %victim%, %attacker% tarafından çökertildi.
+  hatira:
+    display: Hatıra
+    list:
+      - %victim%, %attacker% tarafından sürprize uğradı.
+      - %victim%, %attacker% yüzünden üzüldü.
+      - %victim%, %attacker% tarafından rekt yedi.
+  intikkam:
+    display: İntikkam (Namus Meselesi)
+    list:
+      - %victim%, %attacker% tarafından vahşice vuruldu.
+      - %victim%, %attacker% tarafından uçuruma itildi.
+      - %victim%, %attacker% tarafından hançerlendi.
+      - %victim% adlı oyuncunun pimi %attacker% tarafından çekildi.

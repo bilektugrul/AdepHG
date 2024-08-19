@@ -1,6 +1,5 @@
 package tk.shanebee.hg.gui;
 
-import io.papermc.lib.PaperLib;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.OfflinePlayer;
@@ -49,10 +48,10 @@ public class SpectatorGUI implements InventoryHolder, Listener {
     }
 
     private ItemStack getHead(OfflinePlayer player) {
-        ItemStack head = new ItemStack(Material.PLAYER_HEAD);
+        ItemStack head = new ItemStack(Material.SKULL);
         SkullMeta meta = ((SkullMeta) head.getItemMeta());
         assert meta != null;
-        meta.setOwningPlayer(player);
+        meta.setOwner(player.getName());
         meta.setDisplayName(player.getName());
         String[] lore = Util.getColString(HG.getPlugin().getLang().spectator_compass_head_lore).split(";");
         meta.setLore(Arrays.asList(lore));
@@ -77,11 +76,11 @@ public class SpectatorGUI implements InventoryHolder, Listener {
         if (!(clickedItem.getItemMeta() instanceof SkullMeta)) return;
         Player clicked = getClicked(((SkullMeta) clickedItem.getItemMeta()));
         if (clicked == null) return;
-        PaperLib.teleportAsync(event.getWhoClicked(), clicked.getLocation());
+        event.getWhoClicked().teleport(clicked.getLocation());
     }
 
     private Player getClicked(SkullMeta meta) {
-        OfflinePlayer player = meta.getOwningPlayer();
+        OfflinePlayer player = Bukkit.getOfflinePlayer(meta.getOwner());
         if (player == null || !player.isOnline() || !game.getGamePlayerData().getPlayers().contains(player.getUniqueId())) return null;
         return ((Player) player);
     }

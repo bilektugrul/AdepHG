@@ -1,7 +1,7 @@
 package tk.shanebee.hg.data;
 
 import org.bukkit.Location;
-import org.bukkit.util.BoundingBox;
+import tk.shanebee.hg.util.BoundingBox;
 
 @SuppressWarnings("BooleanMethodIsAlwaysInverted")
 public class PlayerSession {

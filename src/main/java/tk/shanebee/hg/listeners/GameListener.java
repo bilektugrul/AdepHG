@@ -2,11 +2,12 @@ package tk.shanebee.hg.listeners;
 
 import org.bukkit.*;
 import org.bukkit.block.Block;
-import org.bukkit.block.Container;
+import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
+import org.bukkit.event.Event;
 import org.bukkit.event.block.*;
 import org.bukkit.event.entity.*;
 import org.bukkit.event.entity.CreatureSpawnEvent.SpawnReason;
@@ -39,6 +40,7 @@ import tk.shanebee.hg.managers.PlayerManager;
 import tk.shanebee.hg.util.BlockUtils;
 import tk.shanebee.hg.util.Util;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.UUID;
@@ -78,21 +80,21 @@ public class GameListener implements Listener {
 		World world = loc.getWorld();
 		if (world == null) return;
 
-		for (ItemStack i : inv.getStorageContents()) {
+		for (ItemStack i : inv.getContents()) {
 			if (i != null && i.getType() != Material.AIR && !isCursed(i)) {
-				world.dropItemNaturally(loc, i).setPersistent(false);
+				world.dropItemNaturally(loc, i);
 			}
 		}
 		for (ItemStack i : inv.getArmorContents()) {
 			if (i != null && i.getType() != Material.AIR && !isCursed(i)) {
-				world.dropItemNaturally(loc, i).setPersistent(false);
+				world.dropItemNaturally(loc, i);
 			}
 		}
 	}
 
 	@SuppressWarnings("BooleanMethodIsAlwaysInverted")
 	private boolean isCursed(ItemStack itemStack) {
-		return itemStack.containsEnchantment(Enchantment.BINDING_CURSE) || itemStack.containsEnchantment(Enchantment.VANISHING_CURSE);
+		return false;
 	}
 
 	private void checkStick(Game g) {
@@ -169,11 +171,17 @@ public class GameListener implements Listener {
 	private void onDeathByOther(EntityDamageEvent event) {
 		if (event.getEntity() instanceof Player) {
 			final Player player = ((Player) event.getEntity());
+
+			if (player.hasMetadata("HG-GOD")) {
+				event.setCancelled(true);
+			}
+
 			if (playerManager.hasSpectatorData(player)) {
 				event.setCancelled(true);
 				player.setFireTicks(0);
 				return;
 			}
+
 			if (event instanceof EntityDamageByEntityEvent) return;
 			PlayerData pd = playerManager.getPlayerData(player);
 			if (pd != null) {
@@ -188,9 +196,7 @@ public class GameListener implements Listener {
 
 	@SuppressWarnings("ConstantConditions")
     private boolean hasTotem(Player player) {
-		PlayerInventory inv = player.getInventory();
-		if (inv.getItemInMainHand() != null && inv.getItemInMainHand().getType() == Material.TOTEM_OF_UNDYING) return true;
-        return inv.getItemInOffHand() != null && inv.getItemInOffHand().getType() == Material.TOTEM_OF_UNDYING;
+		return false;
     }
 
 	private void processDeath(Player player, Game game, Entity damager, EntityDamageEvent.DamageCause cause) {
@@ -224,7 +230,7 @@ public class GameListener implements Listener {
 			for (UUID uuid : game.getGamePlayerData().getPlayers()) {
 				Player alive = Bukkit.getPlayer(uuid);
 				if (alive != null && player != alive) {
-					alive.playSound(alive.getLocation(), Sound.UI_TOAST_CHALLENGE_COMPLETE, 5, 1);
+					alive.playSound(alive.getLocation(), Sound.ENDERDRAGON_WINGS, 5, 1);
 				}
 			}
 
@@ -261,7 +267,7 @@ public class GameListener implements Listener {
 	}
 
 	private void useTrackStick(Player p) {
-		ItemStack i = p.getInventory().getItemInMainHand();
+		ItemStack i = p.getInventory().getItemInHand();
 		ItemMeta im = i.getItemMeta();
 		assert im != null;
 		if (im.hasDisplayName())
@@ -347,7 +353,7 @@ public class GameListener implements Listener {
 		Game game = event.getGame();
 		GameBlockData gameBlockData = game.getGameBlockData();
 		if (!gameBlockData.isLoggedChest(block.getLocation())) {
-			Inventory inv = ((Container) block.getState()).getInventory();
+			Inventory inv = ((Chest) block.getState()).getInventory();
 			HG.getPlugin().getManager().fillChest(inv, game, event.isBonus());
 			gameBlockData.addGameChest(block.getLocation());
 		}
@@ -425,7 +431,7 @@ public class GameListener implements Listener {
 					if (game == null) {
 						Util.scm(player, lang.cmd_delete_noexist);
 					} else {
-						if (player.getInventory().getItemInMainHand().getType() == Material.AIR) {
+						if (player.getInventory().getItemInHand().getType() == Material.AIR) {
 						    // Process this after event has finished running to prevent double click issues
 							if (HG.getParty().hasParty(player)) {
 								//player is in party
@@ -447,7 +453,7 @@ public class GameListener implements Listener {
 				}
 			}
 		} else if (action == Action.LEFT_CLICK_AIR) {
-			if (player.getInventory().getItemInMainHand().getType().equals(Material.STICK) && playerManager.hasPlayerData(player)) {
+			if (player.getInventory().getItemInHand().getType().equals(Material.STICK) && playerManager.hasPlayerData(player)) {
 				useTrackStick(player);
 			}
 		}
@@ -576,12 +582,8 @@ public class GameListener implements Listener {
     }
 
     private void handleBucketEvent(PlayerBucketEvent event, boolean fill) {
-	    Block block;
-	    if (Util.methodExists(PlayerBucketEvent.class, "getBlock")) {
-	        block = event.getBlock();
-        } else {
-	        block = event.getBlockClicked().getRelative(event.getBlockFace());
-        }
+	    Block block = event.getBlockClicked().getRelative(event.getBlockFace());
+
 	    Player player = event.getPlayer();
 	    final boolean WATER = event.getBucket() == Material.WATER_BUCKET && (Config.blocks.contains("WATER") || Config.blocks.contains("ALL"));
 	    final boolean LAVA = event.getBucket() == Material.LAVA_BUCKET && (Config.blocks.contains("LAVA") || Config.blocks.contains("ALL"));
@@ -612,10 +614,7 @@ public class GameListener implements Listener {
     }
 
     private boolean isChest(Block block) {
-        if (block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST || block.getState() instanceof Shulker) {
-            return true;
-        }
-        return Util.isRunningMinecraft(1, 14) && block.getType() == Material.BARREL;
+        return block.getType() == Material.CHEST || block.getType() == Material.TRAPPED_CHEST;
     }
 
 	@EventHandler
@@ -679,7 +678,7 @@ public class GameListener implements Listener {
 			if (event.getAction() == Action.PHYSICAL) {
 				assert event.getClickedBlock() != null;
 				Material block = event.getClickedBlock().getType();
-				if (block == Material.FARMLAND) {
+				if (block == Material.SOIL) {
 					event.setCancelled(true);
 				}
 			}
@@ -724,18 +723,15 @@ public class GameListener implements Listener {
                         }
                     }
                 }
-                entity.setPersistent(false);
                 game.getGameArenaData().getBound().addEntity(entity);
             }
         }
     }
 
 	@EventHandler
-	private void onPickup(EntityPickupItemEvent event) {
-		if (event.getEntity() instanceof Player) {
-			if (playerManager.hasSpectatorData(event.getEntity().getUniqueId())) {
-				event.setCancelled(true);
-			}
+	private void onPickup(PlayerPickupItemEvent event) {
+		if (playerManager.hasSpectatorData(event.getPlayer().getUniqueId())) {
+			event.setCancelled(true);
 		}
 	}
 
