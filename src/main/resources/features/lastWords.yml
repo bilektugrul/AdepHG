@@ -1,68 +1,123 @@
-hilesiz:
-  list:
-    - 'Ne olursan ol, yine gel (Hile değilsen)'
-    - 'Kapat gel bro bekliyorum'
-    - 'EFBIAY, OPIN DI DUUR'
-    - 'YA ŞU HİLEYİ ENGELLEYİN ARTIK'
-gereksiz:
-  list:
-    - 'Bu oyunun adı Minecraft.'
-    - 'Sanırım öldüm ben. peace out.'
-    - 'BİLGİ: Şu an bunu okuyorsun.'
-korsan:
-  list:
-    - 'Bir korsan filminin daha sonuna geldik...'
-    - 'Ahh, ölümsüzüm sanmıştım...'
-    - 'Gemimi alabilirsin ama canımı asla!!!'
-    - 'Sanırım bu gemi artık sana ait... Ona iyi bak.'
-    - 'Seninle tekrar görüşeceğiz!'
-    - 'Bu okyanuslar artık senindir.'
-    - 'Benim yerimi asla dolduramayacaksın!'
-sarhos:
-  list:
-    - 'MoruQ yapma MoruQ'
-    - 'Aman aman nereye geldik bi anda'
-    - 'Ama kafamız nası güzel! Sonra bi baktık ölmüşüz'
-    - 'Daha demin evdeydim ula'
-    - 'Nerrreye geldik biz birader?'
-    - 'Kafama sıkaaa... Ben sıkamadan başkası sıktı. Gittim ben'
-isyankar:
-  list:
-    - 'Ölürsem kabrime gelme ismet'
-    - 'Ölüm dediğin nedir gülüm?'
-    - 'Selamün aleyküm adım azrail diye bir ses duydum, salladım bıçağı! Ama nafile...'
-noob:
-  list:
-    - 'Hile hile kesin hile'
-    - 'Abi o nası bi vuruş ya'
-    - 'Öyle bi vuruş olamaz yalnız'
-    - 'Ping var, yoksa alırdım abi'
-    - 'Anca arkadan gel zaten'
-cesur:
-  list:
-    - 'Bu hayatta unutulan değil, iz bırakkan ol'
-    - 'Yaptıklarım için pişman değilim hee'
-    - 'Aklım hala yapmadıklarımda'
-cem-yilmaz-klasikleri:
-  list:
-    - 'Uzaylılar diyorum, evet tarafından'
-    - 'ATEŞ - SU - TOPRAK - TAHTA'
-    - 'Öldü lan işte öldü!'
-    - 'Komutan Logar, bir cisim yaklaşıyor efendim.'
-    - 'Adam sigaradan gitti usta.'
-    - 'Ulan bu ok zehirli işte, bunu atmayın ya!'
-    - 'Fazla dikkat çekiyorsun, yapma!'
-    - 'Bak deminden şimdiye geldim.'
-    - 'Uzaylı da olsa, insan insandır.'
-asik:
-  list:
-    - 'Herkes öldürür sevdiğini...'
-    - 'Ne yaşatırsan onu yaşarsın, unutma güzelim.'
-    - 'Oysakı senin için Roma''yı yakardım.'
-havali:
-  list:
-    - 'Ben kaybetmeyi değil, ölmeyi seçtim.'
-    - 'Biz kaybedenlerden değil, hükmedenlerdeniz.'
-    - 'Bir sonraki karşılaşmamızda ensende olacağım...'
-    - 'Gün doğarken tepelerin ardından, sana ölüm doğacak!'
-    - 'Hayatımı sana adıyorum, ölmen için.'
+title: '&1Son Sözler'
+size: 4
+
+add-default-lore-to: bottom
+default-lore:
+  - ''
+  - '&aMesajlar:'
+  - ' %messages%'
+  - ''
+
+back-item-slot: 35
+back-item-name: '&cGeri Dön'
+back-item: BARRIER
+
+slots:
+  hilesiz:
+    display: '&bHilesiz'
+    item: SIGN
+    slot: 10
+
+    list:
+      - 'Ne olursan ol, yine gel (Hile değilsen)'
+      - 'Kapat gel bro bekliyorum'
+      - 'EFBIAY, OPIN DI DUUR'
+      - 'YA ŞU HİLEYİ ENGELLEYİN ARTIK'
+  gereksiz:
+    display: '&7Gereksiz'
+    item: SIGN
+    slot: 11
+
+    list:
+      - 'Bu oyunun adı Minecraft.'
+      - 'Sanırım öldüm ben. peace out.'
+      - 'BİLGİ: Şu an bunu okuyorsun.'
+  korsan:
+    display: '&7Korsan'
+    item: SIGN
+    slot: 12
+
+    list:
+      - 'Bir korsan filminin daha sonuna geldik...'
+      - 'Ahh, ölümsüzüm sanmıştım...'
+      - 'Gemimi alabilirsin ama canımı asla!!!'
+      - 'Sanırım bu gemi artık sana ait... Ona iyi bak.'
+      - 'Seninle tekrar görüşeceğiz!'
+      - 'Bu okyanuslar artık senindir.'
+      - 'Benim yerimi asla dolduramayacaksın!'
+  sarhos:
+    display: '&6Sarhoş'
+    item: SIGN
+    slot: 13
+
+    list:
+      - 'MoruQ yapma MoruQ'
+      - 'Aman aman nereye geldik bi anda'
+      - 'Ama kafamız nası güzel! Sonra bi baktık ölmüşüz'
+      - 'Daha demin evdeydim ula'
+      - 'Nerrreye geldik biz birader?'
+      - 'Kafama sıkaaa... Ben sıkamadan başkası sıktı. Gittim ben'
+  isyankar:
+    display: '&fİsyankar'
+    item: SIGN
+    slot: 14
+
+    list:
+      - 'Ölürsem kabrime gelme ismet'
+      - 'Ölüm dediğin nedir gülüm?'
+      - 'Selamün aleyküm adım azrail diye bir ses duydum, salladım bıçağı! Ama nafile...'
+  noob:
+    display: '&2Noob'
+    item: SIGN
+    slot: 15
+
+    list:
+      - 'Hile hile kesin hile'
+      - 'Abi o nası bi vuruş ya'
+      - 'Öyle bi vuruş olamaz yalnız'
+      - 'Ping var, yoksa alırdım abi'
+      - 'Anca arkadan gel zaten'
+  cesur:
+    display: '&cCesur'
+    item: SIGN
+    slot: 16
+
+    list:
+      - 'Bu hayatta unutulan değil, iz bırakkan ol'
+      - 'Yaptıklarım için pişman değilim hee'
+      - 'Aklım hala yapmadıklarımda'
+  cem-yilmaz-klasikleri:
+    display: '&eCem Yılmaz Klasikleri'
+    item: SIGN
+    slot: 19
+
+    list:
+      - 'Uzaylılar diyorum, evet tarafından'
+      - 'ATEŞ - SU - TOPRAK - TAHTA'
+      - 'Öldü lan işte öldü!'
+      - 'Komutan Logar, bir cisim yaklaşıyor efendim.'
+      - 'Adam sigaradan gitti usta.'
+      - 'Ulan bu ok zehirli işte, bunu atmayın ya!'
+      - 'Fazla dikkat çekiyorsun, yapma!'
+      - 'Bak deminden şimdiye geldim.'
+      - 'Uzaylı da olsa, insan insandır.'
+  asik:
+    display: '&cAşık'
+    item: SIGN
+    slot: 20
+
+    list:
+      - 'Herkes öldürür sevdiğini...'
+      - 'Ne yaşatırsan onu yaşarsın, unutma güzelim.'
+      - 'Oysakı senin için Roma''yı yakardım.'
+  havali:
+    display: '&bHavalı'
+    item: SIGN
+    slot: 21
+
+    list:
+      - 'Ben kaybetmeyi değil, ölmeyi seçtim.'
+      - 'Biz kaybedenlerden değil, hükmedenlerdeniz.'
+      - 'Bir sonraki karşılaşmamızda ensende olacağım...'
+      - 'Gün doğarken tepelerin ardından, sana ölüm doğacak!'
+      - 'Hayatımı sana adıyorum, ölmen için.'

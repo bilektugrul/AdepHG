@@ -1,17 +1,22 @@
 title: '&1Ölüm Mesajları'
 size: 4
 
+add-default-lore-to: bottom
+default-lore:
+  - ''
+  - '&aMesajlar:'
+  - ' %messages%'
+  - ''
+
+back-item-slot: 35
+back-item-name: '&cGeri Dön'
+back-item: BARRIER
+
 slots:
   ates:
     display: '&cAteş'
     item: SIGN
     slot: 10
-
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
 
     list:
       - '&f%victim%, %attacker% tarafından toz haline getirildi.'
@@ -24,12 +29,6 @@ slots:
     item: SIGN
     slot: 11
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%victim%, %attacker% tarafından fırlatıldı.'
       - '&f%victim%, %attacker% tarafından sonsuzluğa atıldı.'
@@ -40,12 +39,6 @@ slots:
     item: SIGN
     slot: 12
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%victim%, %attacker% tarafından muz tabancasıyla vuruldu.'
       - '&f%victim%, %attacker% tarafından soyuldu.'
@@ -54,12 +47,6 @@ slots:
     display: Galaksi
     item: SIGN
     slot: 13
-
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
 
     list:
       - '&f%victim%, %attacker% tarafından uzaya fırlatıldı.'
@@ -70,12 +57,6 @@ slots:
     item: SIGN
     slot: 14
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%victim%, %attacker% tarafından imha edildi.'
       - '&f%victim%, %attacker% tarafından sıkıştırıldı.'
@@ -85,12 +66,6 @@ slots:
     item: SIGN
     slot: 15
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%attacker%, %victim% oyuncusunun dizine vurdu.'
       - '&f%victim% mancınıkla %attacker% tarafından fırlatıldı.'
@@ -99,12 +74,6 @@ slots:
     display: '&4Saldırı'
     item: SIGN
     slot: 16
-
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
 
     list:
       - '&f%victim%, %attacker% tarafından patates edildi.'
@@ -117,12 +86,6 @@ slots:
     item: SIGN
     slot: 19
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%victim% oyuncusuna %attacker% tarafından ALT+F4 çekildi.'
       - '&f%victim%, %attacker% tarafından silindi.'
@@ -132,12 +95,6 @@ slots:
     item: SIGN
     slot: 20
 
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
-
     list:
       - '&f%victim%, %attacker% tarafından sürprize uğradı.'
       - '&f%victim%, %attacker% yüzünden üzüldü.'
@@ -146,12 +103,6 @@ slots:
     display: '&cİntikkam (Namus Meselesi)'
     item: SIGN
     slot: 21
-
-    lore:
-      - ''
-      - '&aMesajlar:'
-      - ' %messages%'
-      - ''
 
     list:
       - '&f%victim%, %attacker% tarafından vahşice vuruldu.'

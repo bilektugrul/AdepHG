@@ -1,41 +1,100 @@
-acim:
-  msg: '%player% yine aç kaldı!'
-yay:
-  display: Yay ve oku çekmek!
-  msg: '%player% yay ve oku çekti!'
-ben-geldim:
-  display: Evet, ben geldim!
-  msg: '%player% bu maçı kazanmak için burada!'
-öldürmeye-geliyor:
-  display: Öldürmeye geliyor
-  msg: '%player% davul çalarak hepinizi tokmakla katletmeye geliyor.'
-deathmatch:
-  display: Ölüm Maçı!
-  msg: '%player% için ölüm şimşeği çakıyor!'
-komuta-elde:
-  display: Komuta Elde
-  msg: 'Hahahaha! komuta artık %player% oyuncusunun elinde.'
-Jack-Sparrow:
-  display: Jack Sparrow
-  msg: '%player% diyor ki: sen beni duymuş muydun, ben Jack Sparrow.'
-gold:
-  display: Altınları almaya geliyor
-  msg: '%player% diyor ki: Elinizdeki bütün altınları çalacağım!'
-kaptan:
-  display: Geminin kaptanı
-  msg: '%player% diyor ki: Bu geminin kaptanı benim!'
-kaptan-diyeceksin:
-  display: Kaptan diyeceksin
-  msg: '%player% diyor ki: Bana KAPTAN diye hitap edeceksiniz!'
-siz-bittiniz:
-  display: Siz bittiniz!
-  msg: '%player% tüm sandıkların yerini biliyor!'
-luck:
-  display: Neredesin be şans?
-  msg: '%player% için biraz şans lazım.'
-rod:
-  display: Sadece olta yeter!
-  msg: '%player% hepinizi balık misali avlamaya geldi!'
-kill:
-  display: Öldürmeye geldim!
-  msg: '%player% hepinizi öldürmeye geldi!'
+title: '&1Giriş Mesajları'
+size: 4
+
+add-default-lore-to: bottom
+default-lore:
+  - ''
+  - ' &bÜcret: &f%price%'
+  -
+  - ' &3Mesaj:'
+  - ' &f%mesaj%'
+  - ''
+
+back-item-slot: 35
+back-item-name: '&cGeri Dön'
+back-item: BARRIER
+
+slots:
+  acim:
+    display: 'Acıktım'
+    msg: '%player% yine aç kaldı!'
+    item: COOKED_BEEF
+    slot: 10
+
+  yay:
+    display: 'Yay ve oku çekmek'
+    item: BOW
+    msg: '%player% yay ve oku çekti!'
+    slot: 11
+
+  ben-geldim:
+    display: 'Evet, ben geldim!'
+    item: WOODEN_DOOR
+    msg: '%player% bu maçı kazanmak için burada!'
+    slot: 12
+
+  öldürmeye-geliyor:
+    display: 'Öldürmeye geliyor'
+    item: IRON_SWORD
+    msg: '%player% davul çalarak hepinizi tokmakla katletmeye geliyor.'
+    slot: 13
+
+  deathmatch:
+    display: 'Ölüm Maçı!'
+    item: REDSTONE
+    msg: '%player% için ölüm şimşeği çakıyor!'
+    slot: 14
+
+  komuta-elde:
+    display: 'Komuta Elde'
+    item: RED_BANNER
+    msg: 'Hahahaha! komuta artık %player% oyuncusunun elinde.'
+    slot: 15
+
+  Jack-Sparrow:
+    display: 'Jack Sparrow'
+    item: TRIPWIRE_HOOK
+    msg: '%player% diyor ki: sen beni duymuş muydun, ben Jack Sparrow.'
+    slot: 16
+
+  gold:
+    display: 'Altınları almaya geliyor'
+    item: GOLD_INGOT
+    msg: '%player% diyor ki: Elinizdeki bütün altınları çalacağım!'
+    slot: 19
+
+  kaptan:
+    display: 'Geminin kaptanı'
+    item: ARROW
+    msg: '%player% diyor ki: Bu geminin kaptanı benim!'
+    slot: 20
+
+  kaptan-diyeceksin:
+    display: 'Kaptan diyeceksin'
+    item: WATCH
+    msg: '%player% diyor ki: Bana KAPTAN diye hitap edeceksiniz!'
+    slot: 21
+
+  siz-bittiniz:
+    display: 'Siz bittiniz!'
+    item: FLINT_AND_STEEL
+    msg: '%player% tüm sandıkların yerini biliyor!'
+    slot: 22
+
+  luck:
+    display: 'Neredesin be şans?'
+    item: CLOCK
+    msg: '%player% için biraz şans lazım.'
+    slot: 23
+
+  rod:
+    display: 'Sadece olta yeter!'
+    item: FISHING_ROD
+    msg: '%player% hepinizi balık misali avlamaya geldi!'
+    slot: 24
+
+  kill:
+    display: 'Öldürmeye geldim!'
+    item: DIAMOND_SWORD
+    msg: '%player% hepinizi öldürmeye geldi!'
+    slot: 25

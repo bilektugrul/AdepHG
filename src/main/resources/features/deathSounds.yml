@@ -1,40 +1,77 @@
-sounds:
+title: '&1Ölüm Sesleri'
+size: 4
+
+add-default-lore-to: bottom
+default-lore:
+  - ''
+  - ' &bÜcret: &f%price%'
+  -
+  - ' &3Sesi dinlemek için'
+  - ' &3sağ tıklayabilirsin.'
+  - ''
+
+back-item-slot: 35
+back-item-name: '&cGeri Dön'
+back-item: BARRIER
+
+slots:
   1:
-    display: Kurt Ölümü
+    display: '&7Kurt Ölümü'
     sound: WOLF_DEATH
+    item: GOLD_RECORD
+    slot: 10
   2:
-    display: Domuz Ölümü
+    display: '&dDomuz Ölümü'
     sound: PIG_DIE
+    item: GOLD_RECORD
+    slot: 11
   3:
-    display: İnek İncindi
+    display: '&fİnek İncindi'
     sound: COW_HURT
+    item: GOLD_RECORD
+    slot: 12
   4:
-    display: Kedi Miyavladı
+    display: '&eKedi Miyavladı'
     sound: CAT_MEOW
+    item: GOLD_RECORD
+    slot: 13
   5:
-    display: Zombi Ölümü
+    display: '&2Zombi Ölümü'
     sound: ZOMBIE_DEATH
+    item: GOLD_RECORD
+    slot: 14
   6:
-    display: Eşek Ölümü
+    display: '&7Eşek Ölümü'
     sound: DONKEY_DEATH
+    item: GOLD_RECORD
+    slot: 15
   7:
-    display: Blaze Ölümü
+    display: '&eBlaze Ölümü'
     sound: BLAZE_DEATH
+    item: GOLD_RECORD
+    slot: 16
   8:
-    display: Golem Ölümü
+    display: '&fGolem Ölümü'
     sound: IRONGOLEM_DEATH
-  9:
-    display: Gardiyan Ölümü
-    sound: GUARDIAN_DEATH
+    item: GOLD_RECORD
+    slot: 19
   10:
-    display: Anvil Düştü
+    display: '&7Anvil Düştü'
     sound: ANVIL_LAND
+    item: GOLD_RECORD
+    slot: 20
   11:
-    display: Wither İncindi
+    display: '&fWither İncindi'
     sound: WITHER_HURT
+    item: GOLD_RECORD
+    slot: 21
   12:
-    display: Ghast Bağırdı
+    display: '&fGhast Bağırdı'
     sound: GHAST_SCREAM
+    item: GOLD_RECORD
+    slot: 22
   13:
-    display: Ghast Ölümü
+    display: '&fGhast Ölümü'
     sound: GHAST_DEATH
+    item: GOLD_RECORD
+    slot: 23
