@@ -147,6 +147,17 @@
             <artifactId>Commons</artifactId>
             <version>1.8.1</version>
         </dependency>
+        <dependency>
+            <groupId>io.github.bilektugrul</groupId>
+            <artifactId>bUtils</artifactId>
+            <version>1.0</version>
+        </dependency>
+        <dependency>
+            <groupId>com.github.hakan-krgn.hCore</groupId>
+            <artifactId>hCore-bukkit</artifactId>
+            <version>0.7.3.3</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>

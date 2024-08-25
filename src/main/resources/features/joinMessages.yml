@@ -5,16 +5,16 @@ yay:
   msg: '%player% yay ve oku çekti!'
 ben-geldim:
   display: Evet, ben geldim!
-  msg: %player% bu maçı kazanmak için burada!
+  msg: '%player% bu maçı kazanmak için burada!'
 öldürmeye-geliyor:
   display: Öldürmeye geliyor
-  msg: %player% davul çalarak hepinizi tokmakla katletmeye geliyor.
+  msg: '%player% davul çalarak hepinizi tokmakla katletmeye geliyor.'
 deathmatch:
   display: Ölüm Maçı!
-  msg: %player% için ölüm şimşeği çakıyor!
+  msg: '%player% için ölüm şimşeği çakıyor!'
 komuta-elde:
   display: Komuta Elde
-  msg: Hahahaha! komuta artık %player% oyuncusunun elinde.
+  msg: 'Hahahaha! komuta artık %player% oyuncusunun elinde.'
 Jack-Sparrow:
   display: Jack Sparrow
   msg: '%player% diyor ki: sen beni duymuş muydun, ben Jack Sparrow.'
@@ -29,7 +29,7 @@ kaptan-diyeceksin:
   msg: '%player% diyor ki: Bana KAPTAN diye hitap edeceksiniz!'
 siz-bittiniz:
   display: Siz bittiniz!
-  msg: %player% tüm sandıkların yerini biliyor!
+  msg: '%player% tüm sandıkların yerini biliyor!'
 luck:
   display: Neredesin be şans?
   msg: '%player% için biraz şans lazım.'

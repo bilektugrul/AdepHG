@@ -1,66 +1,160 @@
-deathMessages:
+title: '&1Ölüm Mesajları'
+size: 4
+
+slots:
   ates:
-    display: Ateş
+    display: '&cAteş'
+    item: SIGN
+    slot: 10
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından toz haline getirildi.
-      - %victim%, %attacker% tarafından kül haline getirildi.
-      - %victim%, %attacker% tarafından eritilerek öldürüldü.
-      - %victim%, %attacker% tarafından yakıldı.
-      - %victim%, %attacker% tarafından havaya uçuruldu.
+      - '&f%victim%, %attacker% tarafından toz haline getirildi.'
+      - '&f%victim%, %attacker% tarafından kül haline getirildi.'
+      - '&f%victim%, %attacker% tarafından eritilerek öldürüldü.'
+      - '&f%victim%, %attacker% tarafından yakıldı.'
+      - '&f%victim%, %attacker% tarafından havaya uçuruldu.'
   bosluk:
-    display: 'Boşluk'
+    display: '&7Boşluk'
+    item: SIGN
+    slot: 11
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından fırlatıldı.
-      - %victim%, %attacker% tarafından sonsuzluğa atıldı.
-      - %victim%, %attacker% tarafından çukura atıldı.
-      - %victim%, %attacker% tarafından hiçliğe atıldı.
+      - '&f%victim%, %attacker% tarafından fırlatıldı.'
+      - '&f%victim%, %attacker% tarafından sonsuzluğa atıldı.'
+      - '&f%victim%, %attacker% tarafından çukura atıldı.'
+      - '&f%victim%, %attacker% tarafından hiçliğe atıldı.'
   acimasiz:
-    display: 'Acımasız'
+    display: '&9Acımasız'
+    item: SIGN
+    slot: 12
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından muz tabancasıyla vuruldu.
-      - %victim%, %attacker% tarafından soyuldu.
-      - %victim%, %attacker% tarafından lapa haline getirildi.
+      - '&f%victim%, %attacker% tarafından muz tabancasıyla vuruldu.'
+      - '&f%victim%, %attacker% tarafından soyuldu.'
+      - '&f%victim%, %attacker% tarafından lapa haline getirildi.'
   galaksi:
-      display: Galaksi
-        - %victim%, %attacker% tarafından uzaya fırlatıldı.
-        - %victim%, %attacker% yüzünden bir astreoite çarptı.
-        - %victim%, %attacker% farklı bir galaksiye gönderildi.
+    display: Galaksi
+    item: SIGN
+    slot: 13
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
+    list:
+      - '&f%victim%, %attacker% tarafından uzaya fırlatıldı.'
+      - '&f%victim%, %attacker% yüzünden bir astreoite çarptı.'
+      - '&f%victim%, %attacker% farklı bir galaksiye gönderildi.'
   sikismak:
-    display: Sıkışmak
+    display: '&6Sıkışmak'
+    item: SIGN
+    slot: 14
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından imha edildi.
-      - %victim%, %attacker% tarafından sıkıştırıldı.
-      - %victim%, %attacker% tarafından etkisiz hale getirildi.
+      - '&f%victim%, %attacker% tarafından imha edildi.'
+      - '&f%victim%, %attacker% tarafından sıkıştırıldı.'
+      - '&f%victim%, %attacker% tarafından etkisiz hale getirildi.'
   efendi:
-    display: efendi
+    display: '&bEfendi'
+    item: SIGN
+    slot: 15
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %attacker%, %victim% oyuncusunun dizine vurdu.
-      - %victim% mancınıkla %attacker% tarafından fırlatıldı.
-      - %victim%, şövalye %attacker% tarafından ezildi.
+      - '&f%attacker%, %victim% oyuncusunun dizine vurdu.'
+      - '&f%victim% mancınıkla %attacker% tarafından fırlatıldı.'
+      - '&f%victim%, şövalye %attacker% tarafından ezildi.'
   saldiri:
-    display: Saldırı
+    display: '&4Saldırı'
+    item: SIGN
+    slot: 16
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından patates edildi.
-      - %victim%, %attacker% tarafından vuruldu.
-      - %victim%, %attacker% tarafından maçın dışına fırlatıldı.
-      - %attacker%, %victim% adlı oyuncunun kalbini kırdı.
-      - %victim% oyuncusuna %attacker% tarafından omuz atıldı.
+      - '&f%victim%, %attacker% tarafından patates edildi.'
+      - '&f%victim%, %attacker% tarafından vuruldu.'
+      - '&f%victim%, %attacker% tarafından maçın dışına fırlatıldı.'
+      - '&f%attacker%, %victim% adlı oyuncunun kalbini kırdı.'
+      - '&f%victim% oyuncusuna %attacker% tarafından omuz atıldı.'
   bilgisayar:
-    display: Bilgisayar
+    display: '&eBilgisayar'
+    item: SIGN
+    slot: 19
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim% oyuncusuna %attacker% tarafından ALT+F4 çekildi.
-      - %victim%, %attacker% tarafından silindi.
-      - %victim%, %attacker% tarafından çökertildi.
+      - '&f%victim% oyuncusuna %attacker% tarafından ALT+F4 çekildi.'
+      - '&f%victim%, %attacker% tarafından silindi.'
+      - '&f%victim%, %attacker% tarafından çökertildi.'
   hatira:
-    display: Hatıra
+    display: '&dHatıra'
+    item: SIGN
+    slot: 20
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından sürprize uğradı.
-      - %victim%, %attacker% yüzünden üzüldü.
-      - %victim%, %attacker% tarafından rekt yedi.
+      - '&f%victim%, %attacker% tarafından sürprize uğradı.'
+      - '&f%victim%, %attacker% yüzünden üzüldü.'
+      - '&f%victim%, %attacker% tarafından rekt yedi.'
   intikkam:
-    display: İntikkam (Namus Meselesi)
+    display: '&cİntikkam (Namus Meselesi)'
+    item: SIGN
+    slot: 21
+
+    lore:
+      - ''
+      - '&aMesajlar:'
+      - ' %messages%'
+      - ''
+
     list:
-      - %victim%, %attacker% tarafından vahşice vuruldu.
-      - %victim%, %attacker% tarafından uçuruma itildi.
-      - %victim%, %attacker% tarafından hançerlendi.
-      - %victim% adlı oyuncunun pimi %attacker% tarafından çekildi.
+      - '&f%victim%, %attacker% tarafından vahşice vuruldu.'
+      - '&f%victim%, %attacker% tarafından uçuruma itildi.'
+      - '&f%victim%, %attacker% tarafından hançerlendi.'
+      - '&f%victim% adlı oyuncunun pimi %attacker% tarafından çekildi.'

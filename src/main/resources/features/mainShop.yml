@@ -1,0 +1,59 @@
+title: '&1Market'
+size: 4
+
+slots:
+  joinMessages:
+    slot: 11
+    name: '&6Giriş Mesajları'
+    lore:
+      - ''
+      - ' &7Giriş mesajları kullanarak'
+      - ' &7oyuncuların dikkatini çek'
+      - ''
+    item: SIGN
+    next: joinMessages
+
+  deathMessages:
+    slot: 13
+    name: '&6Ölüm Mesajları'
+    lore:
+      - ''
+      - ' &7Rakibini aşağılamak için'
+      - ' &7özel ölüm mesajını kullan!'
+      - ''
+    item: REDSTONE
+    next: deathMessages
+
+  deathSounds:
+    slot: 15
+    name: '&6Ölüm Sesleri'
+    lore:
+      - ''
+      - ' &7Özel ölüm sesleri ile'
+      - ' &7rakibinin dikkatini çek!'
+      - ''
+    item: note_block
+    next: deathSounds
+
+  lastWords:
+    slot: 21
+    name: '&6Son Sözler'
+    lore:
+      - ''
+      - ' &7Öldükten sonra seçtiğin'
+      - ' &7son söz mesajı ile'
+      - ' &7neşeli bir ölüm yaşa!'
+      - ''
+    item: PAPER
+    next: lastWords
+
+  rides:
+    slot: 23
+    name: '&6Binekler'
+    lore:
+      - ''
+      - ' &7Oyuna başlarken seçtiğin'
+      - ' &7bineğe bin!'
+      - ''
+    item: saddle
+    next: rides

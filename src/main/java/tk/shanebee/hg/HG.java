@@ -1,5 +1,7 @@
 package tk.shanebee.hg;
 
+import com.hakan.core.HCore;
+import io.github.bilektugrul.butils.BUtilsLib;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -14,6 +16,7 @@ import tk.shanebee.hg.data.*;
 import tk.shanebee.hg.game.Game;
 import tk.shanebee.hg.listeners.*;
 import tk.shanebee.hg.managers.*;
+import tk.shanebee.hg.shop.Shop;
 import tk.shanebee.hg.util.*;
 
 import java.util.*;
@@ -50,6 +53,7 @@ public class HG extends JavaPlugin {
 	private KitManager kitManager;
 	private ItemStackManager itemStackManager;
 	private Leaderboard leaderboard;
+	private Shop shop;
 
 	private static Party party = new NoParty();
 
@@ -58,10 +62,12 @@ public class HG extends JavaPlugin {
 
 	@Override
 	public void onEnable() {
-		Metrics metrics1 = new org.bstats.bukkit.Metrics(this, 15119);
-		metrics1.addCustomChart(new SimplePie("partyplugin", () -> party.getClass().getName().replaceAll("tk.shanebee.hg.util.","")));
+		HCore.setInstance(this);
+		BUtilsLib.setUsingPlugin(this);
+
         loadPlugin(true);
     }
+
     public void loadPlugin(boolean load) {
 		long start = System.currentTimeMillis();
 	    plugin = this;
@@ -122,6 +128,7 @@ public class HG extends JavaPlugin {
 		killManager = new KillManager();
 		manager = new Manager(this);
 		leaderboard = new Leaderboard(this);
+		shop = new Shop(this);
 
 		//PAPI check
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -189,6 +196,7 @@ public class HG extends JavaPlugin {
         killManager = null;
         manager = null;
         leaderboard = null;
+		shop = null;
         HandlerList.unregisterAll(this);
         if (reload) {
             loadPlugin(false);
@@ -228,6 +236,7 @@ public class HG extends JavaPlugin {
 		cmds.put("bordersize", new BorderSizeCmd());
 		cmds.put("bordercenter", new BorderCenterCmd());
 		cmds.put("bordertimer", new BorderTimerCmd());
+		cmds.put("shop", new ShopCmd());
 		if (Config.spectateEnabled) {
 			cmds.put("spectate", new SpectateCmd());
 		}
@@ -385,6 +394,9 @@ public class HG extends JavaPlugin {
 		return this.nbtApi;
 	}
 
+	public Shop getShop() {
+		return shop;
+	}
 
 	public static Party getParty(){return party;}
 
