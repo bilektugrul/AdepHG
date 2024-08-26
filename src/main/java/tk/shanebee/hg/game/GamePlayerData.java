@@ -1,7 +1,12 @@
 package tk.shanebee.hg.game;
 
+import de.tr7zw.nbtapi.NBT;
+import de.tr7zw.nbtapi.plugin.NBTAPI;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.EntityType;
+import org.bukkit.entity.LivingEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -18,6 +23,9 @@ import tk.shanebee.hg.events.PlayerLeaveGameEvent;
 import tk.shanebee.hg.game.GameCommandData.CommandType;
 import tk.shanebee.hg.gui.SpectatorGUI;
 import tk.shanebee.hg.managers.PlayerManager;
+import tk.shanebee.hg.users.User;
+import tk.shanebee.hg.util.NBTApi;
+import tk.shanebee.hg.util.NoAI;
 import tk.shanebee.hg.util.Util;
 import tk.shanebee.hg.util.Vault;
 
@@ -286,11 +294,23 @@ public class GamePlayerData extends Data {
 
             // note: FIRST TELEPORT HERE
             player.teleport(loc);
+            User user = plugin.getUserManager().getUser(player);
+            String selectedRide = user.getSelected("rides");
+            if (selectedRide != null) {
+                System.out.println("making ride");
+                EntityType entityType = EntityType.valueOf(plugin.getShop().getConfig("rides").getString("slots." + selectedRide + ".entity").toUpperCase(Locale.ROOT));
+                System.out.println("type " + entityType);
+                LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, entityType);
+                System.out.println("spawned " + entity.getLocation());
+                NoAI.disableEntityAI(entity);
+                entity.setPassenger(player);
+            }
 
             PlayerData playerData = new PlayerData(player, game);
             if (command && Config.savePreviousLocation) {
                 playerData.setPreviousLocation(previousLocation);
             }
+
             playerManager.addPlayerData(playerData);
             gameArenaData.board.setBoard(player);
 
@@ -321,6 +341,19 @@ public class GamePlayerData extends Data {
             if (players.size() >= game.gameArenaData.minPlayers && (status == Status.WAITING || status == Status.READY)) {
                 game.startPreGame();
             } else if (status == Status.WAITING) {
+                String selectedMsg = user.getSelected("joinMessages");
+                if (selectedMsg != null) {
+                    String msg = plugin.getShop().getMessageOf("joinMessages", selectedMsg).replace("%player%", player.getName());
+
+                    if (Config.broadcastJoinMessages) {
+                        Util.broadcast(msg);
+                    } else {
+                        msgAll(msg);
+                    }
+
+                    return;
+                }
+
                 String broadcast = lang.player_joined_game
                         .replace("<arena>", gameArenaData.getName())
                         .replace("<player>", player.getName()) + (gameArenaData.minPlayers - players.size() <= 0 ? "!" : ":" +

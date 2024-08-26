@@ -7,6 +7,9 @@ default-lore:
   - '&3Fiyat: &f%price%'
   - '&3Durum: &f%durum%'
   - ''
+  - '&7Satın almak için &eSAĞ TIK'
+  - '&7Kullanıma almak için &eSOL TIK'
+  - ''
 
 back-item-slot: 35
 back-item-name: '&cGeri Dön'

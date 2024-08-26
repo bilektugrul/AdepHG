@@ -52,7 +52,10 @@ public class ShopGUI extends InventoryGui {
                 lore.addAll(0, Utils.colored(config.getStringList("default-lore")));
             }
 
-            lore.replaceAll(str -> str.replace("%durum%", user.isBought(id, key) ? "Satın Alınmış" : "Satın Alınmamış"));
+            String selected = user.getSelected(id);
+            boolean isSelected = selected != null && selected.equalsIgnoreCase(key);
+
+            lore.replaceAll(str -> str.replace("%durum%", isSelected ? "Kullanımda" : user.isBought(id, key) ? "Satın Alınmış" : "Satın Alınmamış"));
             lore.replaceAll(str -> str.replace("%price%", String.valueOf(price)));
 
             if (id.equals("deathMessages")) {
@@ -81,16 +84,17 @@ public class ShopGUI extends InventoryGui {
                     .name(name)
                     .lores(lore)
                     .addItemFlags(ItemFlag.values())
+                    .glow(isSelected)
                     .build();
 
             setItem(slot, toPut, e -> {
                 if (id.equals("deathSounds")) {
-                    if (e.getClick().isRightClick()) {
+                    if (e.getClick().isRightClick() && e.getClick().isShiftClick()) {
                         player.playSound(player.getLocation(), XSound.matchXSound(config.getString(path + "sound")).get().parseSound(), 5, 1);
                     }
                 }
 
-                if (!e.isRightClick() && !user.isBought(id, key)) {
+                if (e.isRightClick() && !user.isBought(id, key)) {
                     if (!HG.getPlugin().getEconomy().has(player, price)) {
                         player.closeInventory();
                         player.sendMessage("yetersiz para");
@@ -99,6 +103,12 @@ public class ShopGUI extends InventoryGui {
 
                     user.buy(id, key);
                     this.open(player);
+                }
+
+                if (e.isLeftClick() && user.isBought(id, key)) {
+                    user.setSelectedFeatureItem(id, key);
+                    this.open(player);
+                    player.sendMessage("selected " + key);
                 }
             });
 

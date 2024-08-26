@@ -1,11 +1,14 @@
 package tk.shanebee.hg.shop;
 
+import io.github.bilektugrul.butils.Utils;
 import me.despical.commons.configuration.ConfigUtils;
 import org.bukkit.configuration.file.FileConfiguration;
 import tk.shanebee.hg.HG;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class Shop {
 
@@ -36,6 +39,15 @@ public class Shop {
 
     public FileConfiguration getConfig(String name) {
         return configs.get(name);
+    }
+
+    public String getRandomOfFeature(String feature, String item) {
+        List<String> list = configs.get(feature).getStringList("slots." + item + ".list");
+        return list.get(ThreadLocalRandom.current().nextInt(list.size()));
+    }
+
+    public String getMessageOf(String feature, String item) {
+        return Utils.colored(configs.get(feature).getString("slots." + item + ".msg"));
     }
 
 }

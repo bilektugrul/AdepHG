@@ -8,6 +8,7 @@ import org.bukkit.entity.Projectile;
 import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.data.Language;
+import tk.shanebee.hg.users.User;
 
 /**
  * Manager for deaths in game
@@ -15,6 +16,7 @@ import tk.shanebee.hg.data.Language;
 public class KillManager {
     
     private final Language lang = HG.getPlugin().getLang();
+	private final HG plugin = HG.getPlugin();
 
     /** Get the death message when a player dies of natural causes (non-entity involved deaths)
      * @param dc Cause of the damage
@@ -57,20 +59,12 @@ public class KillManager {
 		if (entity.hasMetadata("death-message")) {
 			return entity.getMetadata("death-message").get(0).asString().replace("<player>", name);
 		}
+
 		switch (entity.getType()) {
             case ARROW:
-                if (!isShotByPlayer(entity)) {
-                    return (lang.death_skeleton.replace("<player>", name));
-                } else {
-                    return getPlayerKillString(name, getShooter(entity), true);
-                }
+				return getPlayerKillString(name, getShooter(entity), true);
 			case PLAYER:
 				return getPlayerKillString(name, ((Player) entity), false);
-			case ZOMBIE:
-				return (lang.death_zombie.replace("<player>", name));
-			case SKELETON:
-			case SPIDER:
-				return (lang.death_spider.replace("<player>", name));
 			default:
 				return (lang.death_other_entity.replace("<player>", name));
 		}
@@ -85,9 +79,20 @@ public class KillManager {
         } else {
             weapon = killer.getInventory().getItemInHand().getType().name().toLowerCase();
         }
-        return (lang.death_player.replace("<player>", victimName)
-                .replace("<killer>", killer.getName())
-                .replace("<weapon>", weapon));
+
+		User killerUser = plugin.getUserManager().getUser(killer);
+		String selected = killerUser.getSelected("deathMessages");
+		if (selected != null) {
+
+			String randomMessage = plugin.getShop().getRandomOfFeature("deathMessages", selected);
+			return randomMessage.replace("%victim%", victimName).replace("%attacker%", killer.getName());
+
+		} else {
+
+			return (lang.death_player.replace("<player>", victimName)
+					.replace("<killer>", killer.getName())
+					.replace("<weapon>", weapon));
+		}
     }
 
     /** Check if the shooter was a player

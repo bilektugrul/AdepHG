@@ -4,11 +4,14 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - '&7Sesi dinlemek için'
-  - '&7sağ tıklayabilirsin.'
-  - ''
   - '&3Fiyat: &f%price%'
   - '&3Durum: &f%durum%'
+  - ''
+  - '&7Satın almak için &eSAĞ TIK'
+  - '&7Kullanıma almak için &eSOL TIK'
+  - ''
+  - '&7Sesi dinlemek için'
+  - '&7Shift+Sağ Tık kullanın.'
   - ''
 
 back-item-slot: 35

@@ -1,5 +1,6 @@
 package tk.shanebee.hg.listeners;
 
+import me.despical.commons.compat.XSound;
 import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
@@ -36,6 +37,7 @@ import tk.shanebee.hg.game.GamePlayerData;
 import tk.shanebee.hg.managers.KillManager;
 import tk.shanebee.hg.managers.Manager;
 import tk.shanebee.hg.managers.PlayerManager;
+import tk.shanebee.hg.users.User;
 import tk.shanebee.hg.util.BlockUtils;
 import tk.shanebee.hg.util.Util;
 
@@ -167,12 +169,12 @@ public class GameListener implements Listener {
 
 	@EventHandler(priority =  EventPriority.HIGHEST)
 	private void onDeathByOther(EntityDamageEvent event) {
-		if (event.getEntity() instanceof Player) {
-			final Player player = ((Player) event.getEntity());
+		if (event.getEntity().hasMetadata("HG-GOD")) {
+			event.setCancelled(true);
+		}
 
-			if (player.hasMetadata("HG-GOD")) {
-				event.setCancelled(true);
-			}
+		if (event.getEntity() instanceof Player) {
+			Player player = ((Player) event.getEntity());
 
 			if (playerManager.hasSpectatorData(player)) {
 				event.setCancelled(true);
@@ -197,6 +199,7 @@ public class GameListener implements Listener {
 		return false;
     }
 
+	// DEATH HERE
 	private void processDeath(Player player, Game game, Entity damager, EntityDamageEvent.DamageCause cause) {
 		dropInv(player);
 		player.setHealth(20);
@@ -209,6 +212,7 @@ public class GameListener implements Listener {
 				deathString = killManager.getKillString(player.getName(), damager);
 			} else if (cause == DamageCause.ENTITY_ATTACK) {
 				deathString = killManager.getKillString(player.getName(), damager);
+
 			} else if (cause == DamageCause.PROJECTILE) {
 				deathString = killManager.getKillString(player.getName(), damager);
 				if (killManager.isShotByPlayer(damager) && killManager.getShooter(damager) != player) {
@@ -220,7 +224,27 @@ public class GameListener implements Listener {
 			}
 
 			// Send death message to all players in game
-			gamePlayerData.msgAll(lang.death_fallen + " &d" + deathString);
+			gamePlayerData.msgAll(deathString);
+
+			User victimUser = plugin.getUserManager().getUser(player);
+			User attackerUser  = plugin.getUserManager().getUser(player);
+
+			String selectedSound = attackerUser.getSelected("deathSounds");
+			try {
+
+				for (Player loop : Bukkit.getOnlinePlayers()) {
+					if (gamePlayerData.getPlayers().contains(loop.getUniqueId())) {
+						loop.playSound(loop.getLocation(), XSound.matchXSound(selectedSound).get().parseSound(), 5, 1);
+					}
+				}
+			} catch (Exception ignored) {
+				System.out.println(selectedSound + " sound does not exist. fix it.");
+			}
+
+			String selected = victimUser.getSelected("lastWords");
+			if (selected != null) {
+				gamePlayerData.msgAll(player.getName() + " adlı oyuncunun son sözü: " + plugin.getShop().getRandomOfFeature("lastWords", selected));
+			}
 
 			leaderboard.addStat(player, Leaderboard.Stats.DEATHS);
 			leaderboard.addStat(player, Leaderboard.Stats.GAMES);
@@ -699,7 +723,7 @@ public class GameListener implements Listener {
         }
 	}
 
-    @EventHandler
+    /*@EventHandler
 	private void onSpawn(EntitySpawnEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof ItemFrame || entity instanceof ArmorStand) return;
@@ -714,7 +738,9 @@ public class GameListener implements Listener {
                     if (event instanceof CreatureSpawnEvent) {
                         SpawnReason reason = ((CreatureSpawnEvent) event).getSpawnReason();
                         switch (reason) {
+							case CUSTOM:
                             case DEFAULT:
+                                return;
                             case NATURAL:
                                 event.setCancelled(true);
                                 return;
@@ -724,7 +750,7 @@ public class GameListener implements Listener {
                 game.getGameArenaData().getBound().addEntity(entity);
             }
         }
-    }
+    }*/
 
 	@EventHandler
 	private void onPickup(PlayerPickupItemEvent event) {
@@ -793,7 +819,7 @@ public class GameListener implements Listener {
 		Game game = plugin.getPlayerManager().getGame(event.getPlayer());
 		if (game == null) return;
 		if (game.getGameArenaData().getStatus() == Status.COUNTDOWN || game.getGameArenaData().getStatus() == Status.WAITING)
-			event.setCancelled(true);
+			event.getPlayer().teleport(event.getFrom());
 	}
 
 }
