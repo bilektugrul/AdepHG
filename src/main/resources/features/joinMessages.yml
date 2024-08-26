@@ -4,10 +4,11 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - ' &bÜcret: &f%price%'
-  -
-  - ' &3Mesaj:'
+  - '&3Mesaj:'
   - ' &f%mesaj%'
+  - ''
+  - '&3Fiyat: &f%price%'
+  - '&3Durum: &f%durum%'
   - ''
 
 back-item-slot: 35
@@ -20,81 +21,95 @@ slots:
     msg: '%player% yine aç kaldı!'
     item: COOKED_BEEF
     slot: 10
+    price: 10
 
   yay:
     display: 'Yay ve oku çekmek'
     item: BOW
     msg: '%player% yay ve oku çekti!'
     slot: 11
+    price: 10
 
   ben-geldim:
     display: 'Evet, ben geldim!'
     item: WOODEN_DOOR
     msg: '%player% bu maçı kazanmak için burada!'
     slot: 12
+    price: 10
 
   öldürmeye-geliyor:
     display: 'Öldürmeye geliyor'
     item: IRON_SWORD
     msg: '%player% davul çalarak hepinizi tokmakla katletmeye geliyor.'
     slot: 13
+    price: 10
 
   deathmatch:
     display: 'Ölüm Maçı!'
     item: REDSTONE
     msg: '%player% için ölüm şimşeği çakıyor!'
     slot: 14
+    price: 10
 
   komuta-elde:
     display: 'Komuta Elde'
     item: RED_BANNER
     msg: 'Hahahaha! komuta artık %player% oyuncusunun elinde.'
     slot: 15
+    price: 10
 
   Jack-Sparrow:
     display: 'Jack Sparrow'
     item: TRIPWIRE_HOOK
     msg: '%player% diyor ki: sen beni duymuş muydun, ben Jack Sparrow.'
     slot: 16
+    price: 10
 
   gold:
     display: 'Altınları almaya geliyor'
     item: GOLD_INGOT
     msg: '%player% diyor ki: Elinizdeki bütün altınları çalacağım!'
     slot: 19
+    price: 10
 
   kaptan:
     display: 'Geminin kaptanı'
     item: ARROW
     msg: '%player% diyor ki: Bu geminin kaptanı benim!'
     slot: 20
+    price: 10
 
   kaptan-diyeceksin:
     display: 'Kaptan diyeceksin'
     item: WATCH
     msg: '%player% diyor ki: Bana KAPTAN diye hitap edeceksiniz!'
     slot: 21
+    price: 10
 
   siz-bittiniz:
     display: 'Siz bittiniz!'
     item: FLINT_AND_STEEL
     msg: '%player% tüm sandıkların yerini biliyor!'
     slot: 22
+    price: 10
 
   luck:
     display: 'Neredesin be şans?'
     item: CLOCK
     msg: '%player% için biraz şans lazım.'
     slot: 23
+    price: 10
 
   rod:
     display: 'Sadece olta yeter!'
     item: FISHING_ROD
     msg: '%player% hepinizi balık misali avlamaya geldi!'
     slot: 24
+    price: 10
 
   kill:
     display: 'Öldürmeye geldim!'
     item: DIAMOND_SWORD
     msg: '%player% hepinizi öldürmeye geldi!'
     slot: 25
+    price: 10

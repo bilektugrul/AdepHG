@@ -43,7 +43,7 @@ public class MainShopGUI extends InventoryGui {
                     .addItemFlags(ItemFlag.values())
                     .build();
 
-            setItem(slot, toPut, e -> new ShopGUI(shop.getConfig(next), next).open(player));
+            setItem(slot, toPut, e -> new ShopGUI(next, shop.getConfig(next)).open(player));
         }
     }
 }

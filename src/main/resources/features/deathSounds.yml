@@ -4,10 +4,11 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - ' &bÜcret: &f%price%'
-  -
-  - ' &3Sesi dinlemek için'
-  - ' &3sağ tıklayabilirsin.'
+  - '&7Sesi dinlemek için'
+  - '&7sağ tıklayabilirsin.'
+  - ''
+  - '&3Fiyat: &f%price%'
+  - '&3Durum: &f%durum%'
   - ''
 
 back-item-slot: 35
@@ -15,63 +16,86 @@ back-item-name: '&cGeri Dön'
 back-item: BARRIER
 
 slots:
-  1:
+  wolf:
     display: '&7Kurt Ölümü'
     sound: WOLF_DEATH
     item: GOLD_RECORD
     slot: 10
-  2:
+    price: 10
+
+  pig:
     display: '&dDomuz Ölümü'
     sound: PIG_DIE
     item: GOLD_RECORD
     slot: 11
-  3:
+    price: 10
+
+  cow:
     display: '&fİnek İncindi'
     sound: COW_HURT
     item: GOLD_RECORD
     slot: 12
-  4:
+    price: 10
+
+  cat:
     display: '&eKedi Miyavladı'
     sound: CAT_MEOW
     item: GOLD_RECORD
     slot: 13
-  5:
+    price: 10
+
+  zombie:
     display: '&2Zombi Ölümü'
     sound: ZOMBIE_DEATH
     item: GOLD_RECORD
     slot: 14
-  6:
+    price: 10
+
+  donkey:
     display: '&7Eşek Ölümü'
     sound: DONKEY_DEATH
     item: GOLD_RECORD
     slot: 15
-  7:
+    price: 10
+
+  blaze:
     display: '&eBlaze Ölümü'
     sound: BLAZE_DEATH
     item: GOLD_RECORD
     slot: 16
-  8:
+    price: 10
+
+  golem:
     display: '&fGolem Ölümü'
     sound: IRONGOLEM_DEATH
     item: GOLD_RECORD
     slot: 19
-  10:
+    price: 10
+
+  anvil:
     display: '&7Anvil Düştü'
     sound: ANVIL_LAND
     item: GOLD_RECORD
     slot: 20
-  11:
+    price: 10
+
+  wither:
     display: '&fWither İncindi'
     sound: WITHER_HURT
     item: GOLD_RECORD
     slot: 21
-  12:
+    price: 10
+
+  ghast_scream:
     display: '&fGhast Bağırdı'
     sound: GHAST_SCREAM
     item: GOLD_RECORD
     slot: 22
-  13:
+    price: 10
+
+  ghast_death:
     display: '&fGhast Ölümü'
     sound: GHAST_DEATH
     item: GOLD_RECORD
     slot: 23
+    price: 10

@@ -4,7 +4,6 @@ import org.bukkit.*;
 import org.bukkit.block.Block;
 import org.bukkit.block.Chest;
 import org.bukkit.block.Sign;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.*;
 import org.bukkit.event.*;
 import org.bukkit.event.Event;
@@ -40,7 +39,6 @@ import tk.shanebee.hg.managers.PlayerManager;
 import tk.shanebee.hg.util.BlockUtils;
 import tk.shanebee.hg.util.Util;
 
-import java.awt.*;
 import java.util.Collections;
 import java.util.Objects;
 import java.util.UUID;

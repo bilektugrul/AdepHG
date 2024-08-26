@@ -10,6 +10,9 @@
 # Bukkit Material Enums: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Material.html
 # Bukkit Tags: https://hub.spigotmc.org/javadocs/spigot/org/bukkit/Tag.html
 
+database:
+    auto-save-interval: 10
+
 settings:
     # When enabled, more informative debug messages will be sent when errors occur
     debug: false

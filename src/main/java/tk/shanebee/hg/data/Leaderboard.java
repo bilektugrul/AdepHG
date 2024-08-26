@@ -38,6 +38,7 @@ public class Leaderboard {
     public Leaderboard(HG plugin) {
         this.plugin = plugin;
         this.lang = plugin.getLang();
+
         wins = new TreeMap<>();
         kills = new TreeMap<>();
         deaths = new TreeMap<>();

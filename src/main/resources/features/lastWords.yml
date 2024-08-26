@@ -4,8 +4,11 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - '&aMesajlar:'
+  - '&3Mesajlar:'
   - ' %messages%'
+  - ''
+  - '&3Fiyat: &f%price%'
+  - '&3Durum: &f%durum%'
   - ''
 
 back-item-slot: 35
@@ -17,107 +20,117 @@ slots:
     display: '&bHilesiz'
     item: SIGN
     slot: 10
+    price: 10
 
     list:
-      - 'Ne olursan ol, yine gel (Hile değilsen)'
-      - 'Kapat gel bro bekliyorum'
-      - 'EFBIAY, OPIN DI DUUR'
-      - 'YA ŞU HİLEYİ ENGELLEYİN ARTIK'
+      - '&fNe olursan ol, yine gel (Hile değilsen)'
+      - '&fKapat gel bro bekliyorum'
+      - '&fEFBIAY, OPIN DI DUUR'
+      - '&fYA ŞU HİLEYİ ENGELLEYİN ARTIK'
   gereksiz:
     display: '&7Gereksiz'
     item: SIGN
     slot: 11
+    price: 10
 
     list:
-      - 'Bu oyunun adı Minecraft.'
-      - 'Sanırım öldüm ben. peace out.'
-      - 'BİLGİ: Şu an bunu okuyorsun.'
+      - '&fBu oyunun adı Minecraft.'
+      - '&fSanırım öldüm ben. peace out.'
+      - '&fBİLGİ: Şu an bunu okuyorsun.'
   korsan:
     display: '&7Korsan'
     item: SIGN
     slot: 12
+    price: 10
 
     list:
-      - 'Bir korsan filminin daha sonuna geldik...'
-      - 'Ahh, ölümsüzüm sanmıştım...'
-      - 'Gemimi alabilirsin ama canımı asla!!!'
-      - 'Sanırım bu gemi artık sana ait... Ona iyi bak.'
-      - 'Seninle tekrar görüşeceğiz!'
-      - 'Bu okyanuslar artık senindir.'
-      - 'Benim yerimi asla dolduramayacaksın!'
+      - '&fBir korsan filminin daha sonuna geldik...'
+      - '&fAhh, ölümsüzüm sanmıştım...'
+      - '&fGemimi alabilirsin ama canımı asla!!!'
+      - '&fSanırım bu gemi artık sana ait... Ona iyi bak.'
+      - '&fSeninle tekrar görüşeceğiz!'
+      - '&fBu okyanuslar artık senindir.'
+      - '&fBenim yerimi asla dolduramayacaksın!'
   sarhos:
     display: '&6Sarhoş'
     item: SIGN
     slot: 13
+    price: 10
 
     list:
-      - 'MoruQ yapma MoruQ'
-      - 'Aman aman nereye geldik bi anda'
-      - 'Ama kafamız nası güzel! Sonra bi baktık ölmüşüz'
-      - 'Daha demin evdeydim ula'
-      - 'Nerrreye geldik biz birader?'
-      - 'Kafama sıkaaa... Ben sıkamadan başkası sıktı. Gittim ben'
+      - '&fMoruQ yapma MoruQ'
+      - '&fAman aman nereye geldik bi anda'
+      - '&fAma kafamız nası güzel! Sonra bi baktık ölmüşüz'
+      - '&fDaha demin evdeydim ula'
+      - '&fNerrreye geldik biz birader?'
+      - '&fKafama sıkaaa... Ben sıkamadan başkası sıktı. Gittim ben'
   isyankar:
     display: '&fİsyankar'
     item: SIGN
     slot: 14
+    price: 10
 
     list:
-      - 'Ölürsem kabrime gelme ismet'
-      - 'Ölüm dediğin nedir gülüm?'
-      - 'Selamün aleyküm adım azrail diye bir ses duydum, salladım bıçağı! Ama nafile...'
+      - '&fÖlürsem kabrime gelme ismet'
+      - '&fÖlüm dediğin nedir gülüm?'
+      - '&fSelamün aleyküm adım azrail diye bir ses duydum, salladım bıçağı! Ama nafile...'
   noob:
     display: '&2Noob'
     item: SIGN
     slot: 15
+    price: 10
 
     list:
-      - 'Hile hile kesin hile'
-      - 'Abi o nası bi vuruş ya'
-      - 'Öyle bi vuruş olamaz yalnız'
-      - 'Ping var, yoksa alırdım abi'
-      - 'Anca arkadan gel zaten'
+      - '&fHile hile kesin hile'
+      - '&fAbi o nası bi vuruş ya'
+      - '&fÖyle bi vuruş olamaz yalnız'
+      - '&fPing var, yoksa alırdım abi'
+      - '&fAnca arkadan gel zaten'
   cesur:
     display: '&cCesur'
     item: SIGN
     slot: 16
+    price: 10
 
     list:
-      - 'Bu hayatta unutulan değil, iz bırakkan ol'
-      - 'Yaptıklarım için pişman değilim hee'
-      - 'Aklım hala yapmadıklarımda'
+      - '&fBu hayatta unutulan değil, iz bırakkan ol'
+      - '&fYaptıklarım için pişman değilim hee'
+      - '&fAklım hala yapmadıklarımda'
   cem-yilmaz-klasikleri:
     display: '&eCem Yılmaz Klasikleri'
     item: SIGN
     slot: 19
+    price: 10
 
     list:
-      - 'Uzaylılar diyorum, evet tarafından'
-      - 'ATEŞ - SU - TOPRAK - TAHTA'
-      - 'Öldü lan işte öldü!'
-      - 'Komutan Logar, bir cisim yaklaşıyor efendim.'
-      - 'Adam sigaradan gitti usta.'
-      - 'Ulan bu ok zehirli işte, bunu atmayın ya!'
-      - 'Fazla dikkat çekiyorsun, yapma!'
-      - 'Bak deminden şimdiye geldim.'
-      - 'Uzaylı da olsa, insan insandır.'
+      - '&fUzaylılar diyorum, evet tarafından'
+      - '&fATEŞ - SU - TOPRAK - TAHTA'
+      - '&fÖldü lan işte öldü!'
+      - '&fKomutan Logar, bir cisim yaklaşıyor efendim.'
+      - '&fAdam sigaradan gitti usta.'
+      - '&fUlan bu ok zehirli işte, bunu atmayın ya!'
+      - '&fFazla dikkat çekiyorsun, yapma!'
+      - '&fBak deminden şimdiye geldim.'
+      - '&fUzaylı da olsa, insan insandır.'
   asik:
     display: '&cAşık'
     item: SIGN
     slot: 20
+    price: 10
 
     list:
-      - 'Herkes öldürür sevdiğini...'
-      - 'Ne yaşatırsan onu yaşarsın, unutma güzelim.'
-      - 'Oysakı senin için Roma''yı yakardım.'
+      - '&fHerkes öldürür sevdiğini...'
+      - '&fNe yaşatırsan onu yaşarsın, unutma güzelim.'
+      - '&fOysakı senin için Roma''yı yakardım.'
   havali:
     display: '&bHavalı'
     item: SIGN
     slot: 21
+    price: 10
 
     list:
-      - 'Ben kaybetmeyi değil, ölmeyi seçtim.'
-      - 'Biz kaybedenlerden değil, hükmedenlerdeniz.'
-      - 'Bir sonraki karşılaşmamızda ensende olacağım...'
-      - 'Gün doğarken tepelerin ardından, sana ölüm doğacak!'
-      - 'Hayatımı sana adıyorum, ölmen için.'
+      - '&fBen kaybetmeyi değil, ölmeyi seçtim.'
+      - '&fBiz kaybedenlerden değil, hükmedenlerdeniz.'
+      - '&fBir sonraki karşılaşmamızda ensende olacağım...'
+      - '&fGün doğarken tepelerin ardından, sana ölüm doğacak!'
+      - '&fHayatımı sana adıyorum, ölmen için.'

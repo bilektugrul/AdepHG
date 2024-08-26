@@ -15,6 +15,7 @@ import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.jetbrains.annotations.NotNull;
 import tk.shanebee.hg.HG;
+import tk.shanebee.hg.users.User;
 
 import java.util.Arrays;
 import java.util.List;
@@ -25,7 +26,7 @@ public class ShopGUI extends InventoryGui {
     private final FileConfiguration config;
     private final String id;
 
-    public ShopGUI(FileConfiguration config, String id) {
+    public ShopGUI(String id, FileConfiguration config) {
         super("shop-" + id, Utils.getColoredString(config, "title"), config.getInt("size"), InventoryType.CHEST);
 
         this.id = id;
@@ -35,9 +36,12 @@ public class ShopGUI extends InventoryGui {
     @Override
     public void onOpen(@NotNull Player player) {
         for (String key : config.getConfigurationSection("slots").getKeys(false)) {
+            User user = HG.getPlugin().getUserManager().getUser(player);
+
             String path = "slots." + key + ".";
 
             int slot = config.getInt(path + "slot");
+            int price = config.getInt(path + "price");
             String name = Utils.getColoredString(config, path + "display");
 
             List<String> lore = Utils.colored(config.getStringList(path + "lore"));
@@ -47,6 +51,9 @@ public class ShopGUI extends InventoryGui {
             } else if (config.getString("add-default-lore-to") != null) {
                 lore.addAll(0, Utils.colored(config.getStringList("default-lore")));
             }
+
+            lore.replaceAll(str -> str.replace("%durum%", user.isBought(id, key) ? "Satın Alınmış" : "Satın Alınmamış"));
+            lore.replaceAll(str -> str.replace("%price%", String.valueOf(price)));
 
             if (id.equals("deathMessages")) {
                 List<String> messages = Utils.getStringList(config, path + "list");
@@ -64,7 +71,7 @@ public class ShopGUI extends InventoryGui {
 
             if (id.equals("joinMessages")) {
                 String message = Utils.colored(config.getString(path + "msg").replace("%player%", player.getName()));
-                findAndReplaceOneLine(lore, "%mesaj%", message);
+                lore.replaceAll(str -> str.replace("%mesaj%", message));
             }
 
             String materialStr = config.getString(path + "item").toUpperCase(Locale.ENGLISH);
@@ -82,24 +89,23 @@ public class ShopGUI extends InventoryGui {
                         player.playSound(player.getLocation(), XSound.matchXSound(config.getString(path + "sound")).get().parseSound(), 5, 1);
                     }
                 }
+
+                if (!e.isRightClick() && !user.isBought(id, key)) {
+                    if (!HG.getPlugin().getEconomy().has(player, price)) {
+                        player.closeInventory();
+                        player.sendMessage("yetersiz para");
+                        return;
+                    }
+
+                    user.buy(id, key);
+                    this.open(player);
+                }
             });
 
             setItem(config.getInt("back-item-slot"), HCore.itemBuilder(XMaterial.matchXMaterial(config.getString("back-item")).get().parseItem())
                     .name(Utils.colored(config.getString("back-item-name")))
                     .build(), e -> new MainShopGUI(HG.getPlugin().getShop(), HG.getPlugin().getShop().mainShop).open(player));
         }
-    }
-
-    public void findAndReplaceOneLine(List<String> replaceIn, String lookFor, String replaceWith) {
-        int l = 0;
-        for (String line : replaceIn) {
-            if (line.contains(lookFor)) {
-                break;
-            }
-            l++;
-        }
-
-        replaceIn.set(l, replaceIn.get(l).replace(lookFor, replaceWith));
     }
 
     public void findAndReplaceMsgs(List<String> replaceIn, String lookFor, List<String> replaceWith) {

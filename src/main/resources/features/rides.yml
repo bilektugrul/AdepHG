@@ -4,7 +4,8 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - ' &bÜcret: &f%price%'
+  - '&3Fiyat: &f%price%'
+  - '&3Durum: &f%durum%'
   - ''
 
 back-item-slot: 35
@@ -17,76 +18,102 @@ slots:
     display: '&fMooshroom İneği'
     slot: 10
     entity: mooshroom_cow
-    fiyat: 1
+    price: 10
+
   cow:
     display: '&7İnek'
     item: cow_spawn_egg
     slot: 11
     entity: cow
-    fiyat: 1
+    price: 10
+
   chicken:
     display: '&fTavuk'
     item: chicken_spawn_egg
     slot: 12
     entity: CHICKEN
-    fiyat: 1
+    price: 10
+
   pig:
     display: '&dDomuz'
     item: pig_spawn_egg
     slot: 13
     entity: PIG
+    price: 10
+
   sheep:
     display: '&fKoyun'
     item: sheep_spawn_egg
     slot: 14
     entity: sheep
+    price: 10
+
   cat:
     display: '&eKedi'
     item: ocelot_spawn_egg
     slot: 15
     entity: ocelot
+    price: 10
+
   creeper:
     display: '&2Creeper'
     item: creeper_spawn_egg
     slot: 16
     entity: creeper
+    price: 10
+
   skeleton:
     display: '&fİskelet'
     item: skeleton_spawn_egg
     slot: 19
     entity: skeleton
+    price: 10
+
   spider:
     display: '&7Örümcek'
     item: spider_spawn_egg
     slot: 20
     entity: SPIDER
+    price: 10
+
   witch:
     display: '&dCadı'
     item: witch_spawn_egg
     slot: 21
     entity: WITCH
+    price: 10
+
   blaze:
     display: '&eBlaze'
     item: blaze_spawn_egg
     slot: 22
     entity: blaze
+    price: 10
+
   zombie:
     display: '&aZombi'
     item: zombie_spawn_egg
     slot: 23
     entity: ZOMBIE
+    price: 10
+
   pigman:
     display: '&dDomuz Adam'
     item: ZOMBIFIED_PIGLIN_SPAWN_EGG
     slot: 23
     entity: PIGMAN
+    price: 10
+
   snowman:
     display: '&fKardan Adam'
     item: MONSTER_EGG
     slot: 24
     entity: snowman
+    price: 10
+
   golem:
     display: '&fGolem'
     item: MONSTER_EGG
     slot: 25
     entity: IRON_GOLEM
+    price: 10

@@ -2,6 +2,7 @@ package tk.shanebee.hg;
 
 import com.hakan.core.HCore;
 import io.github.bilektugrul.butils.BUtilsLib;
+import net.milkbowl.vault.economy.Economy;
 import org.bstats.bukkit.Metrics;
 import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
@@ -13,12 +14,16 @@ import org.bukkit.permissions.PermissionDefault;
 import org.bukkit.plugin.java.JavaPlugin;
 import tk.shanebee.hg.commands.*;
 import tk.shanebee.hg.data.*;
+import tk.shanebee.hg.economy.VaultManager;
 import tk.shanebee.hg.game.Game;
 import tk.shanebee.hg.listeners.*;
 import tk.shanebee.hg.managers.*;
 import tk.shanebee.hg.shop.Shop;
+import tk.shanebee.hg.users.User;
+import tk.shanebee.hg.users.UserManager;
 import tk.shanebee.hg.util.*;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -54,6 +59,8 @@ public class HG extends JavaPlugin {
 	private ItemStackManager itemStackManager;
 	private Leaderboard leaderboard;
 	private Shop shop;
+	private UserManager userManager;
+	private VaultManager vaultManager;
 
 	private static Party party = new NoParty();
 
@@ -128,6 +135,12 @@ public class HG extends JavaPlugin {
 		killManager = new KillManager();
 		manager = new Manager(this);
 		leaderboard = new Leaderboard(this);
+		vaultManager = new VaultManager(this);
+		userManager = new UserManager(this);
+		for (Player player : Bukkit.getOnlinePlayers()) {
+			userManager.loadUser(player.getName(), true);
+		}
+
 		shop = new Shop(this);
 
 		//PAPI check
@@ -170,6 +183,7 @@ public class HG extends JavaPlugin {
 		getServer().getPluginManager().registerEvents(new CancelListener(this), this);
 		getServer().getPluginManager().registerEvents(new GameListener(this), this);
 		getServer().getPluginManager().registerEvents(new ChestDropListener(this), this);
+		getServer().getPluginManager().registerEvents(new PlayerListener(this), this);
 
 		Util.log("HungerGames has been &aenabled&7 in &b%.2f seconds&7!", (float)(System.currentTimeMillis() - start) / 1000);
 	}
@@ -285,6 +299,18 @@ public class HG extends JavaPlugin {
 			}
 		}
 		games.clear();
+	}
+
+	public Economy getEconomy() {
+		return vaultManager.getEconomy();
+	}
+
+	public UserManager getUserManager() {
+		return userManager;
+	}
+
+	public void saveAllUsers() throws IOException {
+		userManager.saveUsers();
 	}
 
 	/** Get the instance of this plugin

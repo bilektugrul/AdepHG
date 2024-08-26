@@ -4,8 +4,11 @@ size: 4
 add-default-lore-to: bottom
 default-lore:
   - ''
-  - '&aMesajlar:'
+  - '&3Mesajlar:'
   - ' %messages%'
+  - ''
+  - '&3Fiyat: &f%price%'
+  - '&3Durum: &f%durum%'
   - ''
 
 back-item-slot: 35
@@ -17,6 +20,7 @@ slots:
     display: '&cAteş'
     item: SIGN
     slot: 10
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından toz haline getirildi.'
@@ -28,6 +32,7 @@ slots:
     display: '&7Boşluk'
     item: SIGN
     slot: 11
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından fırlatıldı.'
@@ -38,6 +43,7 @@ slots:
     display: '&9Acımasız'
     item: SIGN
     slot: 12
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından muz tabancasıyla vuruldu.'
@@ -47,6 +53,7 @@ slots:
     display: Galaksi
     item: SIGN
     slot: 13
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından uzaya fırlatıldı.'
@@ -56,6 +63,7 @@ slots:
     display: '&6Sıkışmak'
     item: SIGN
     slot: 14
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından imha edildi.'
@@ -65,6 +73,7 @@ slots:
     display: '&bEfendi'
     item: SIGN
     slot: 15
+    price: 10
 
     list:
       - '&f%attacker%, %victim% oyuncusunun dizine vurdu.'
@@ -74,6 +83,7 @@ slots:
     display: '&4Saldırı'
     item: SIGN
     slot: 16
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından patates edildi.'
@@ -85,6 +95,7 @@ slots:
     display: '&eBilgisayar'
     item: SIGN
     slot: 19
+    price: 10
 
     list:
       - '&f%victim% oyuncusuna %attacker% tarafından ALT+F4 çekildi.'
@@ -94,6 +105,7 @@ slots:
     display: '&dHatıra'
     item: SIGN
     slot: 20
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından sürprize uğradı.'
@@ -103,6 +115,7 @@ slots:
     display: '&cİntikkam (Namus Meselesi)'
     item: SIGN
     slot: 21
+    price: 10
 
     list:
       - '&f%victim%, %attacker% tarafından vahşice vuruldu.'
