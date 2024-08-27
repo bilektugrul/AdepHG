@@ -15,12 +15,14 @@ import org.bukkit.event.entity.EntityDamageEvent.DamageCause;
 import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.player.*;
+import org.bukkit.event.vehicle.VehicleExitEvent;
 import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.PlayerInventory;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.metadata.FixedMetadataValue;
 import org.bukkit.util.Vector;
+import org.spigotmc.event.entity.EntityDismountEvent;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.Status;
 import tk.shanebee.hg.data.Config;
@@ -818,8 +820,23 @@ public class GameListener implements Listener {
 	private void onMove(PlayerMoveEvent event) {
 		Game game = plugin.getPlayerManager().getGame(event.getPlayer());
 		if (game == null) return;
-		if (game.getGameArenaData().getStatus() == Status.COUNTDOWN || game.getGameArenaData().getStatus() == Status.WAITING)
+		if (event.getPlayer().getVehicle() != null) return;
+
+		if (game.getGameArenaData().getStatus() == Status.COUNTDOWN || game.getGameArenaData().getStatus() == Status.WAITING) {
 			event.getPlayer().teleport(event.getFrom());
+		}
+	}
+
+	@EventHandler
+	private void onEject(EntityDismountEvent e) {
+		if (e.getEntity() instanceof Player rider) {
+			Game game = plugin.getPlayerManager().getGame(rider);
+			if (game == null) return;
+
+			if (game.getGameArenaData().getStatus() == Status.COUNTDOWN || game.getGameArenaData().getStatus() == Status.WAITING) {
+				e.setCancelled(true);
+			}
+		}
 	}
 
 }

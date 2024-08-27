@@ -1,7 +1,5 @@
 package tk.shanebee.hg.game;
 
-import de.tr7zw.nbtapi.NBT;
-import de.tr7zw.nbtapi.plugin.NBTAPI;
 import org.bukkit.*;
 import org.bukkit.block.BlockFace;
 import org.bukkit.entity.Entity;
@@ -24,11 +22,12 @@ import tk.shanebee.hg.game.GameCommandData.CommandType;
 import tk.shanebee.hg.gui.SpectatorGUI;
 import tk.shanebee.hg.managers.PlayerManager;
 import tk.shanebee.hg.users.User;
-import tk.shanebee.hg.util.NBTApi;
 import tk.shanebee.hg.util.NoAI;
 import tk.shanebee.hg.util.Util;
 import tk.shanebee.hg.util.Vault;
 
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
 import java.util.*;
 
 /**
@@ -40,15 +39,16 @@ public class GamePlayerData extends Data {
     private final SpectatorGUI spectatorGUI;
 
     // Player Lists
-    final List<UUID> players = new ArrayList<>();
-    final List<UUID> spectators = new ArrayList<>();
+    public final List<UUID> players = new ArrayList<>();
+    public final List<UUID> spectators = new ArrayList<>();
     // This list contains all players who have joined the arena
     // Will be used to broadcast messages even if a player is no longer in the game
-    final List<UUID> allPlayers = new ArrayList<>();
+    public final List<UUID> allPlayers = new ArrayList<>();
 
     // Data lists
-    final Map<Player, Integer> kills = new HashMap<>();
-    final Map<String, Team> teams = new HashMap<>();
+    public final Map<Player, Integer> kills = new HashMap<>();
+    public final Map<Player, Entity> spawnedRides = new HashMap<>();
+    public final Map<String, Team> teams = new HashMap<>();
 
     protected GamePlayerData(Game game) {
         super(game);
@@ -293,17 +293,15 @@ public class GamePlayerData extends Data {
             Location previousLocation = player.getLocation();
 
             // note: FIRST TELEPORT HERE
-            player.teleport(loc);
             User user = plugin.getUserManager().getUser(player);
             String selectedRide = user.getSelected("rides");
+            player.teleport(loc);
             if (selectedRide != null) {
-                System.out.println("making ride");
                 EntityType entityType = EntityType.valueOf(plugin.getShop().getConfig("rides").getString("slots." + selectedRide + ".entity").toUpperCase(Locale.ROOT));
-                System.out.println("type " + entityType);
                 LivingEntity entity = (LivingEntity) loc.getWorld().spawnEntity(loc, entityType);
-                System.out.println("spawned " + entity.getLocation());
                 NoAI.disableEntityAI(entity);
-                entity.setPassenger(player);
+                spawnedRides.put(player, entity);
+                plugin.getServer().getScheduler().runTaskLater(plugin, () -> entity.setPassenger(player), 5);
             }
 
             PlayerData playerData = new PlayerData(player, game);
@@ -340,19 +338,19 @@ public class GamePlayerData extends Data {
                 gameArenaData.setStatus(Status.WAITING);
             if (players.size() >= game.gameArenaData.minPlayers && (status == Status.WAITING || status == Status.READY)) {
                 game.startPreGame();
-            } else if (status == Status.WAITING) {
-                String selectedMsg = user.getSelected("joinMessages");
-                if (selectedMsg != null) {
-                    String msg = plugin.getShop().getMessageOf("joinMessages", selectedMsg).replace("%player%", player.getName());
+            }
 
-                    if (Config.broadcastJoinMessages) {
-                        Util.broadcast(msg);
-                    } else {
-                        msgAll(msg);
-                    }
+            String selectedMsg = user.getSelected("joinMessages");
+            if (selectedMsg != null) {
+                String msg = plugin.getShop().getMessageOf("joinMessages", selectedMsg).replace("%player%", player.getName());
 
-                    return;
+                if (Config.broadcastJoinMessages) {
+                    Util.broadcast(msg);
+                } else {
+                    msgAll(msg);
                 }
+
+            } else {
 
                 String broadcast = lang.player_joined_game
                         .replace("<arena>", gameArenaData.getName())
@@ -364,6 +362,7 @@ public class GamePlayerData extends Data {
                     msgAll(broadcast);
                 }
             }
+
             kitHelp(player);
 
             game.gameBlockData.updateLobbyBlock();
@@ -378,7 +377,7 @@ public class GamePlayerData extends Data {
      * @param player Player to leave the game
      * @param death  Whether the player has died or not (Generally should be false)
      */
-    public void leave(Player player, Boolean death) {
+    public void leave(Player player, boolean death) {
         Bukkit.getPluginManager().callEvent(new PlayerLeaveGameEvent(game, player, death));
         UUID uuid = player.getUniqueId();
         players.remove(uuid);
@@ -407,7 +406,7 @@ public class GamePlayerData extends Data {
         game.updateAfterDeath(player, death);
     }
 
-    void exit(Player player, @Nullable Location exitLocation) {
+    public void exit(Player player, @Nullable Location exitLocation) {
         GameArenaData gameArenaData = game.getGameArenaData();
         player.removeMetadata("HG-GOD", plugin);
         Location loc;
@@ -420,11 +419,12 @@ public class GamePlayerData extends Data {
             Location bedLocation = player.getBedSpawnLocation();
             loc = bedLocation != null ? bedLocation : worldSpawn;
         }
-        PlayerData playerData = playerManager.getData(player);
-        if (playerData == null || playerData.isOnline()) {
-            player.teleport(loc);
-        } else {
-            player.teleport(loc);
+
+        player.teleport(loc);
+
+        if (spawnedRides.containsKey(player)) {
+            spawnedRides.get(player).remove();
+            spawnedRides.remove(player);
         }
     }
 

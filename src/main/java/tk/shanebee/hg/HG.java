@@ -211,6 +211,12 @@ public class HG extends JavaPlugin {
         manager = null;
         leaderboard = null;
 		shop = null;
+        try {
+            userManager.saveUsers();
+        } catch (IOException e) {
+			throw new RuntimeException(e);
+        }
+        userManager = null;
         HandlerList.unregisterAll(this);
         if (reload) {
             loadPlugin(false);

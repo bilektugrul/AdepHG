@@ -3,6 +3,7 @@ package tk.shanebee.hg.game;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.block.Sign;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import tk.shanebee.hg.HG;
 import tk.shanebee.hg.Status;
@@ -217,6 +218,12 @@ public class Game {
         gameBlockData.updateLobbyBlock();
         gameArenaData.bound.removeEntities();
         freeRoam = new FreeRoamTask(this);
+
+        for (Map.Entry<Player, Entity> entry : gamePlayerData.spawnedRides.entrySet()) {
+            entry.getValue().remove();
+        }
+        gamePlayerData.spawnedRides.clear();
+
         gameCommandData.runCommands(CommandType.START, null);
     }
 
