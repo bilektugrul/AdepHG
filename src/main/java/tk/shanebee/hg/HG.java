@@ -2,9 +2,8 @@ package tk.shanebee.hg;
 
 import com.hakan.core.HCore;
 import io.github.bilektugrul.butils.BUtilsLib;
+import me.despical.commons.configuration.ConfigUtils;
 import net.milkbowl.vault.economy.Economy;
-import org.bstats.bukkit.Metrics;
-import org.bstats.charts.SimplePie;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.bukkit.event.HandlerList;
@@ -19,7 +18,6 @@ import tk.shanebee.hg.game.Game;
 import tk.shanebee.hg.listeners.*;
 import tk.shanebee.hg.managers.*;
 import tk.shanebee.hg.shop.Shop;
-import tk.shanebee.hg.users.User;
 import tk.shanebee.hg.users.UserManager;
 import tk.shanebee.hg.util.*;
 
@@ -142,6 +140,7 @@ public class HG extends JavaPlugin {
 		}
 
 		shop = new Shop(this);
+		HoloCmd.leaderboardFile = ConfigUtils.getConfig(this, "features/leaderboardholo");
 
 		//PAPI check
 		if (Bukkit.getPluginManager().isPluginEnabled("PlaceholderAPI")) {
@@ -194,6 +193,7 @@ public class HG extends JavaPlugin {
 
     private void unloadPlugin(boolean reload) {
         stopAll();
+
         games = null;
         playerSession = null;
         itemRarityMap = null;
@@ -222,6 +222,7 @@ public class HG extends JavaPlugin {
             loadPlugin(false);
         } else {
             cmds = null;
+			ConfigUtils.saveConfig(this, HoloCmd.leaderboardFile, "features/leaderboardholo");
         }
     }
 
@@ -257,6 +258,7 @@ public class HG extends JavaPlugin {
 		cmds.put("bordercenter", new BorderCenterCmd());
 		cmds.put("bordertimer", new BorderTimerCmd());
 		cmds.put("shop", new ShopCmd());
+		cmds.put("hololoc", new HoloCmd());
 		if (Config.spectateEnabled) {
 			cmds.put("spectate", new SpectateCmd());
 		}

@@ -110,7 +110,7 @@ public class Util {
      * @param s      Message to send
      */
     public static void scm(CommandSender sender, String s) {
-        if (s.length() > 0) { // only send messages if its actually a message
+        if (!s.isEmpty()) { // only send messages if its actually a message
             sender.sendMessage(getColString(s) + ChatColor.RESET);
         }
     }
@@ -133,7 +133,7 @@ public class Util {
      * @param message Message to send
      */
     public static void sendPrefixedMessage(CommandSender sender, String message) {
-        if (message.length() > 0) { // only send messages if its actually a message
+        if (!message.isEmpty()) { // only send messages if its actually a message
             scm(sender, HG.getPlugin().getLang().prefix + message);
         }
     }
@@ -155,7 +155,7 @@ public class Util {
      * @param s Message to send
      */
     public static void broadcast(String s) {
-        if (s.length() > 0) { // only send messages if its actually a message
+        if (!s.isEmpty()) { // only send messages if its actually a message
             Bukkit.broadcastMessage(getColString(HG.getPlugin().getLang().prefix + " " + s));
         }
     }
@@ -191,16 +191,12 @@ public class Util {
     }
 
     public static BlockFace getSignFace(BlockFace face) {
-        switch (face) {
-            case WEST:
-                return BlockFace.SOUTH;
-            case SOUTH:
-                return BlockFace.EAST;
-            case EAST:
-                return BlockFace.NORTH;
-            default:
-                return BlockFace.WEST;
-        }
+        return switch (face) {
+            case WEST -> BlockFace.SOUTH;
+            case SOUTH -> BlockFace.EAST;
+            case EAST -> BlockFace.NORTH;
+            default -> BlockFace.WEST;
+        };
     }
 
     /**

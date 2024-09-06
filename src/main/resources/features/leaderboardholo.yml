@@ -1,0 +1,26 @@
+wins-header:
+  - '&b&lLifetime Wins'
+  - '&7All Modes'
+  - ''
+wins-bottom:
+  - '&a&lWins&r &7Kills'
+
+wins-format:
+  - '&e&l%no%. &6%player% &7- &e%score%'
+
+kills-header:
+  - '&b&lLifetime Kills'
+  - '&7All Modes'
+  - ''
+kills-bottom:
+  - '&7&lWins&r &a&lKills'
+
+kills-format:
+  - '&e&l%no%. &6%player% &7- &e%score%'
+
+stats-holo:
+  - '&6&lYour Survival Games Profile'
+  - 'Total Kills: %hungergames_lb_kills_player%'
+  - 'Total Deaths: %hungergames_lb_deaths_player%'
+  - 'Total Wins: %hungergames_lb_wins_player%'
+  - 'Total Games: %hungergames_lb_games_player%'

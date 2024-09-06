@@ -26,14 +26,14 @@ public class Leaderboard {
     private final Map<String, Integer> deaths;
     private final Map<String, Integer> gamesPlayed;
 
-    private final List<String> sorted_players_wins;
-    private final List<String> sorted_scores_wins;
-    private final List<String> sorted_players_kills;
-    private final List<String> sorted_scores_kills;
-    private final List<String> sorted_players_deaths;
-    private final List<String> sorted_scores_deaths;
-    private final List<String> sorted_players_gamesPlayed;
-    private final List<String> sorted_scores_gamesPlayed;
+    public final List<String> sorted_players_wins;
+    public final List<String> sorted_scores_wins;
+    public final List<String> sorted_players_kills;
+    public final List<String> sorted_scores_kills;
+    public final List<String> sorted_players_deaths;
+    public final List<String> sorted_scores_deaths;
+    public final List<String> sorted_players_gamesPlayed;
+    public final List<String> sorted_scores_gamesPlayed;
 
     public Leaderboard(HG plugin) {
         this.plugin = plugin;
@@ -111,20 +111,12 @@ public class Leaderboard {
      * @param amount Amount to add
      */
     public void addStat(UUID uuid, Stats stat, int amount) {
-        Map<String, Integer> map;
-        switch (stat) {
-            case KILLS:
-                map = this.kills;
-                break;
-            case DEATHS:
-                map = this.deaths;
-                break;
-            case GAMES:
-                map = this.gamesPlayed;
-                break;
-            default:
-                map = this.wins;
-        }
+        Map<String, Integer> map = switch (stat) {
+            case KILLS -> this.kills;
+            case DEATHS -> this.deaths;
+            case GAMES -> this.gamesPlayed;
+            default -> this.wins;
+        };
         if (map.containsKey(uuid.toString())) {
             map.replace(uuid.toString(), map.get(uuid.toString()) + amount);
         } else {
@@ -165,20 +157,12 @@ public class Leaderboard {
      * @return Amount of the relative stat
      */
     public int getStat(UUID uuid, Stats stat) {
-        Map<String, Integer> map;
-        switch (stat) {
-            case KILLS:
-                map = this.kills;
-                break;
-            case DEATHS:
-                map = this.deaths;
-                break;
-            case GAMES:
-                map = this.gamesPlayed;
-                break;
-            default:
-                map = this.wins;
-        }
+        Map<String, Integer> map = switch (stat) {
+            case KILLS -> this.kills;
+            case DEATHS -> this.deaths;
+            case GAMES -> this.gamesPlayed;
+            default -> this.wins;
+        };
         return map.getOrDefault(uuid.toString(), 0);
     }
 
@@ -188,16 +172,12 @@ public class Leaderboard {
      * @return Sorted list of players from a stat
      */
     public List<String> getStatsPlayers(Stats stat) {
-        switch (stat) {
-            case KILLS:
-                return sorted_players_kills;
-            case DEATHS:
-                return sorted_players_deaths;
-            case GAMES:
-                return sorted_players_gamesPlayed;
-            default:
-                return sorted_players_wins;
-        }
+        return switch (stat) {
+            case KILLS -> sorted_players_kills;
+            case DEATHS -> sorted_players_deaths;
+            case GAMES -> sorted_players_gamesPlayed;
+            default -> sorted_players_wins;
+        };
     }
 
     /** Gets a list of scores from a stat
@@ -206,16 +186,12 @@ public class Leaderboard {
      * @return Sorted list of scores from a stat
      */
     public List<String> getStatsScores(Stats stat) {
-        switch (stat) {
-            case KILLS:
-                return sorted_scores_kills;
-            case DEATHS:
-                return sorted_scores_deaths;
-            case GAMES:
-                return sorted_scores_gamesPlayed;
-            default:
-                return sorted_scores_wins;
-        }
+        return switch (stat) {
+            case KILLS -> sorted_scores_kills;
+            case DEATHS -> sorted_scores_deaths;
+            case GAMES -> sorted_scores_gamesPlayed;
+            default -> sorted_scores_wins;
+        };
     }
 
     private void saveLeaderboard() {

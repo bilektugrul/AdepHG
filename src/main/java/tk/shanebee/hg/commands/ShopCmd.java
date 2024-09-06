@@ -16,4 +16,5 @@ public class ShopCmd extends BaseCmd {
         new MainShopGUI(plugin.getShop(), plugin.getShop().mainShop).open(player);
         return true;
     }
+
 }

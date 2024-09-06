@@ -11,11 +11,11 @@ import tk.shanebee.hg.util.Util;
 
 public abstract class BaseCmd {
 
-    final HG plugin;
-    Language lang;
-    PlayerManager playerManager;
-    Manager gameManager;
-    ArenaConfig arenaConfig;
+    transient HG plugin;
+    public Language lang;
+    public PlayerManager playerManager;
+    public Manager gameManager;
+    public ArenaConfig arenaConfig;
 
     public BaseCmd() {
         this.plugin = HG.getPlugin();
